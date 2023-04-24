@@ -1,0 +1,33 @@
+.conteiner {
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: 13rem 5rem auto;
+  width: auto;
+  height: 600px;
+}
+
+.logo {
+  height: 500px;
+}
+
+.formContainer {
+  display: grid;
+  height: 100%;
+  align-content: center;
+  justify-content: center;
+  gap: 19px;
+}
+
+.formContainer>input {
+  height: 40px;
+  width: 266px;
+}
+
+.quickLogin {
+  display: grid;
+  height: 100%;
+  grid-template-columns: auto auto;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+}
