@@ -5,7 +5,15 @@ export default {
     './src/**/*.{js,ts,jsx,tsx}'
   ],
   theme: {
-    extend: {}
+    extend: {
+      width: {
+        94: '26rem',
+        128: '32rem'
+      },
+      gridTemplateRows: {
+        layout: '12rem, 5rem, auto'
+      }
+    }
   },
   plugins: []
 }
