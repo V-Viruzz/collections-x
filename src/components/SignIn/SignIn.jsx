@@ -1,5 +1,5 @@
 import Card from '../Card/Card'
-import Form from '../Form/Form'
+import FormLogin from '../FormLogin/FormLogin'
 import reactLogo from '../../assets/react.svg'
 import LoginSocial from '../LoginSocial/LoginSocial'
 
@@ -14,7 +14,7 @@ function SignIn () {
           <h2 className='text-3xl'>Iniciar sesion</h2>
         </div>
         <LoginSocial />
-        <Form />
+        <FormLogin />
       </div>
     </Card>
   )
