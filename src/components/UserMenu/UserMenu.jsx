@@ -5,7 +5,6 @@ import { signOut } from 'firebase/auth'
 
 function UserMenu () {
   const { isLogin } = useLogin(auth)
-  console.log(isLogin)
 
   const handleClick = async () => {
     await signOut(auth)

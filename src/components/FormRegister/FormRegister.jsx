@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import Input from '../Input/Input'
 import css from './Form.module.css'
 
-function FormLogin () {
+function FormRegister () {
   const { handleError } = useContext(ErrorContext)
   const navigate = useNavigate()
 
@@ -22,7 +22,7 @@ function FormLogin () {
       if (!userCredentials.user.emailVerified) {
         console.log('first')
       }
-      navigate('/register-completado')
+      navigate('/verification')
     } catch (error) {
       if (error.code === 'auth/email-already-in-use') {
         handleError('Email already in use')
@@ -56,4 +56,4 @@ function FormLogin () {
   )
 }
 
-export default FormLogin
+export default FormRegister

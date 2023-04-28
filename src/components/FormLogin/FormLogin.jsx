@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import Input from '../Input/Input'
 import css from './Form.module.css'
 
-function FormRegister () {
+function FormLogin () {
   const { handleError } = useContext(ErrorContext)
   const navigate = useNavigate()
 
@@ -45,4 +45,4 @@ function FormRegister () {
   )
 }
 
-export default FormRegister
+export default FormLogin
