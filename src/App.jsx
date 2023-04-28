@@ -1,29 +1,32 @@
 import SignUp from './components/SignUp/SignUp'
-import { Routes, Route } from 'react-router-dom'
+import SignIn from './components/SignIn/SignIn'
+import { Routes, Route, useNavigate } from 'react-router-dom'
 import NotificationError from './components/NotificationError/NotificationError'
 import Card from './components/Card/Card'
+import Home from './components/Home/Home'
 import './App.css'
 
 function Register () {
+  const navigate = useNavigate()
+
   return (
-    <>
+    <Card>
       <h2>Te registraste con exito</h2>
-      <Card />
-    </>
+      <button onClick={() => navigate('/')}>Ir al home</button>
+    </Card>
   )
 }
 
 function App () {
   return (
     <>
-      <div className='conteiner-app p-10 rounded-3xl bg-stone-900 shadow-2xl w-full sm:w-[26rem]'>
-        <Routes>
-          <Route path='/' element={<SignUp />} />
-          <Route path='/register' element={<Register />} />
-        </Routes>
-
-        <NotificationError />
-      </div>
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/register' element={<SignUp />} />
+        <Route path='/register-completado' element={<Register />} />
+        <Route path='/login' element={<SignIn />} />
+      </Routes>
+      <NotificationError />
     </>
   )
 }

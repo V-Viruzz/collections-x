@@ -18,7 +18,7 @@ function Form () {
     try {
       const result = await createUserWithEmailAndPassword(auth, email, password)
       console.log(result)
-      navigate('/register')
+      navigate('/register-completado')
     } catch (error) {
       if (error.code === 'auth/email-already-in-use') {
         handleError('Email already in use')
