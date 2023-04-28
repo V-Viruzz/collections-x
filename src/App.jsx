@@ -4,6 +4,7 @@ import { Routes, Route, useNavigate } from 'react-router-dom'
 import NotificationError from './components/NotificationError/NotificationError'
 import Card from './components/Card/Card'
 import Home from './components/Home/Home'
+import VerificationCard from './components/VerificationCard/VerificationCard'
 import './App.css'
 
 function Register () {
@@ -25,6 +26,7 @@ function App () {
         <Route path='/register' element={<SignUp />} />
         <Route path='/register-completado' element={<Register />} />
         <Route path='/login' element={<SignIn />} />
+        <Route path='/verification' element={<VerificationCard />} />
       </Routes>
       <NotificationError />
     </>

@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import { createUserWithEmailAndPassword } from 'firebase/auth'
+import { createUserWithEmailAndPassword, sendEmailVerification } from 'firebase/auth'
 import { auth } from '../../service/firebase'
 import { ErrorContext } from '../../context/error'
 import { useNavigate } from 'react-router-dom'
@@ -16,8 +16,12 @@ function FormLogin () {
     const password = event.target['signup-password'].value
 
     try {
-      const result = await createUserWithEmailAndPassword(auth, email, password)
-      console.log(result)
+      const userCredentials = await createUserWithEmailAndPassword(auth, email, password)
+      sendEmailVerification(auth.currentUser).then(() => console.log('correo enviado'))
+
+      if (!userCredentials.user.emailVerified) {
+        console.log('first')
+      }
       navigate('/register-completado')
     } catch (error) {
       if (error.code === 'auth/email-already-in-use') {
