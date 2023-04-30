@@ -34,3 +34,5 @@ function App () {
 }
 
 export default App
+
+// Agregar un collecion de paginas en el main
