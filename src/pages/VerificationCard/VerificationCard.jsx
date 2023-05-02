@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom'
-import useLogin from '../../hooks/useLogin'
-import Card from '../Card/Card'
+import useLogin from '../../components/UserMenu/UserMenu'
+import Card from '../../components/Card/Card'
 
 function VerificationCard () {
   const navigate = useNavigate()

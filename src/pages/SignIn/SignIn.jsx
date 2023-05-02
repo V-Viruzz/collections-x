@@ -1,10 +1,9 @@
+import Card from '../../components/Card/Card'
+import FormLogin from '../../components/FormLogin/FormLogin'
 import reactLogo from '../../assets/react.svg'
-import FormRegister from '../FormRegister/FormRegister'
-import LoginSocial from '../LoginSocial/LoginSocial'
-import Card from '../Card/Card'
-import '../../service/firebase.js'
+import LoginSocial from '../../components/LoginSocial/LoginSocial'
 
-function SignUp () {
+function SignIn () {
   return (
     <Card>
       <div className=' grid grid-cols-auto grid-rows-layout'>
@@ -12,13 +11,13 @@ function SignUp () {
           <a href='https://react.dev' target='_blank' rel='noreferrer'>
             <img src={reactLogo} className='logo react' alt='React logo' />
           </a>
-          <h2 className='text-3xl'>Registrarse</h2>
+          <h2 className='text-3xl'>Iniciar sesion</h2>
         </div>
         <LoginSocial />
-        <FormRegister />
+        <FormLogin />
       </div>
     </Card>
   )
 }
 
-export default SignUp
+export default SignIn

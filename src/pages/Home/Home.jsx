@@ -1,6 +1,6 @@
-
-import UserMenu from '../UserMenu/UserMenu'
-import Collections from '../Collections/Collections'
+import UserMenu from '../../components/UserMenu/UserMenu'
+import Collections from '../../components/Collections/Collections'
+import { CollectionProvider } from '../../context/collection'
 
 function Home () {
   return (
@@ -27,7 +27,9 @@ function Home () {
 
       {/* Contenido de la página */}
       <main className='grow flex items-center'>
-        <Collections />
+        <CollectionProvider>
+          <Collections />
+        </CollectionProvider>
       </main>
 
       {/* Footer */}
