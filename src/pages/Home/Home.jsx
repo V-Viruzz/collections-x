@@ -1,6 +1,6 @@
 import UserMenu from '../../components/UserMenu/UserMenu'
-import Collections from '../../components/Collections/Collections'
 import { CollectionProvider } from '../../context/collection'
+import { Outlet } from 'react-router-dom'
 
 function Home () {
   return (
@@ -28,7 +28,7 @@ function Home () {
       {/* Contenido de la página */}
       <main className='grow flex items-center'>
         <CollectionProvider>
-          <Collections />
+          <Outlet />
         </CollectionProvider>
       </main>
 

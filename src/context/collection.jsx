@@ -3,8 +3,15 @@ import { createContext, useState } from 'react'
 export const CollectionContext = createContext()
 
 export function CollectionProvider ({ children }) {
-  const [currentView, setCurrentView] = useState([])
-  const [collections, setCollections] = useState()
+  const [currentView, setCurrentView] = useState({
+    name: 'Viruz',
+    collections: []
+  }
+  )
+  const [collections, setCollections] = useState({
+    name: 'Viruz',
+    collections: []
+  })
 
   return (
     <CollectionContext.Provider value={{

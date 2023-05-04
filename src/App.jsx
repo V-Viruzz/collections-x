@@ -2,6 +2,7 @@ import SignUp from './pages/SignUp/SignUp'
 import SignIn from './pages/SignIn/SignIn'
 import { Routes, Route, useNavigate } from 'react-router-dom'
 import NotificationError from './components/NotificationError/NotificationError'
+import Collections from './components/Collections/Collections'
 import Card from './components/Card/Card'
 import Home from './pages/Home/Home'
 import VerificationCard from './pages/VerificationCard/VerificationCard'
@@ -22,7 +23,9 @@ function App () {
   return (
     <>
       <Routes>
-        <Route path='/' element={<Home />} />
+        <Route path='/' element={<Home />}>
+          <Route path='/:name' element={<Collections />} />
+        </Route>
         <Route path='/register' element={<SignUp />} />
         <Route path='/register-completado' element={<Register />} />
         <Route path='/login' element={<SignIn />} />
