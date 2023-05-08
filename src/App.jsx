@@ -24,7 +24,8 @@ function App () {
     <>
       <Routes>
         <Route path='/' element={<Home />}>
-          <Route path='/:name' element={<Collections />} />
+          <Route path='/collections' element={<Collections />} />
+          <Route path='/collections/*' element={<Collections />} />
         </Route>
         <Route path='/register' element={<SignUp />} />
         <Route path='/register-completado' element={<Register />} />

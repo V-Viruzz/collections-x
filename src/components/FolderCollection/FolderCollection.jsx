@@ -1,15 +1,19 @@
-// import useCollection from '../../hooks/useCollection'
+import useCollection from '../../hooks/useCollection'
 import { Link } from 'react-router-dom'
 
 function FolderCollection (props) {
-  // const { setCurrentView } = useCollection()
+  const { setCurrentView } = useCollection()
+  const handleClick = () => {
+    console.log('click', props)
+    setCurrentView(props)
+  }
 
   const DirLink = (props) => {
     // if (!props.isDirectory) {
     //   return <>{props.children}</>
     // }
 
-    const link = `/${props.name}`
+    const link = `/collections/${props.name}`
     // if (props.path) {
     //   link = `${props.path}--${props.name}`
     // }
@@ -26,11 +30,11 @@ function FolderCollection (props) {
 
   return (
     <DirLink {...props}>
-      <div className='flex w-full h-32 rounded-2xl'>
+      <div className='flex w-full h-32 rounded-2xl' onClick={handleClick}>
 
         <div className='flex justify-center items-center h-auto w-full rounded-l-2xl text-gray-50 bg-black bg-opacity-20'>
           <div>
-            <p className='text-center text-sm '>Folder </p>
+            <p className='text-center text-sm '>Folder {props.name}</p>
           </div>
         </div>
 
