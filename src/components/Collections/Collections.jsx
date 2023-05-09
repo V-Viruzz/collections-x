@@ -1,32 +1,35 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import useCollection from '../../hooks/useCollection'
 import FolderCollection from '../FolderCollection/FolderCollection'
-import { useParams } from 'react-router-dom'
-import Input from '../Input/Input'
 import md5 from 'md5'
 
 function Collections () {
   const { currentView, addFolder } = useCollection()
   const [state, setState] = useState()
   const [inputHidden, setInputHidden] = useState(true)
-  const location = useParams()
+  const inputRef = useRef(null)
+  const location = window.location.href.split('/').pop()
+  const pathFull = window.location.href.split('/')
+  const index = pathFull.indexOf('collections')
+  const entryPath = pathFull.splice(index).join('/')
 
   useEffect(() => {
     const tmp = JSON.parse(window.localStorage.getItem('fileSystem'))
     console.log('tmp', tmp)
-    console.log(location['*'])
+    console.log('entryPath', entryPath)
     setState(tmp || null)
   }, [currentView])
 
-  const handleSubmit = (event) => {
-    event.preventDefault()
-    const name = event.target['name-folder'].value
-    console.log('submit')
+  const handleClickForm = () => {
+    const name = inputRef.current.value
+
     addFolder({
       name,
       type: 'folder',
       color: 'primary',
-      parentID: location['*'] === undefined ? 'collections' : md5(location['*'] + 'folder')
+      parentID: location === 'collections' ? 'collections' : md5(entryPath + 'folder'),
+      parentPath: location,
+      path: entryPath
 
     })
     setInputHidden(true)
@@ -34,7 +37,7 @@ function Collections () {
 
   return (
     <div className='grid gap-5 w-80 mx-auto'>
-      <h2>{currentView.name}</h2>
+      <h2>{location}</h2>
       <div className='flex justify-between '>
         <button
           className='w-36'
@@ -49,11 +52,10 @@ function Collections () {
       state
         ? state.collections.map((attrs, index) => {
           const listId =
-            location['*'] === undefined
+            location === 'collections'
               ? state.collections[0].children
-              : state.collections.find(c => c.name === location['*']).children
+              : state.collections.find(c => c.path === entryPath).children
 
-          console.log(listId)
           if (listId.includes(attrs.id)) {
             return <FolderCollection key={index} {...attrs} />
           } else {
@@ -64,16 +66,14 @@ function Collections () {
         }
       <div className={`fixed z-50 inset-0 items-center justify-center ${inputHidden ? 'hidden' : 'flex'}`}>
         <div className='container mx-auto bg-zinc-900 w-80 h-48 rounded-2xl flex justify-center items-center flex-col gap-4'>
-          <form
-            onSubmit={handleSubmit}
-          >
-            <p>name de folder</p>
 
-            <Input type='text' placeholder='name' id='name-folder' />
+          <p>name de folder</p>
 
-            <button className=' bg-slate-800 '>Continuar</button>
+          <input type='text' placeholder='name' id='name-folder' ref={inputRef} />
 
-          </form>
+          <button className=' bg-slate-800 ' onClick={handleClickForm}>Continuar</button>
+          <button className=' bg-slate-800' onClick={() => setInputHidden(true)}>Cancelar</button>
+
         </div>
       </div>
     </div>
