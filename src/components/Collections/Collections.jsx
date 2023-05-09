@@ -8,7 +8,7 @@ function Collections () {
   const [state, setState] = useState()
   const [inputHidden, setInputHidden] = useState(true)
   const inputRef = useRef(null)
-  const location = window.location.href.split('/').pop()
+  const currentPath = window.location.href.split('/').pop()
   const pathFull = window.location.href.split('/')
   const index = pathFull.indexOf('collections')
   const entryPath = pathFull.splice(index).join('/')
@@ -27,8 +27,8 @@ function Collections () {
       name,
       type: 'folder',
       color: 'primary',
-      parentID: location === 'collections' ? 'collections' : md5(entryPath + 'folder'),
-      parentPath: location,
+      parentID: currentPath === 'collections' ? 'collections' : md5(entryPath + 'folder'),
+      parentPath: currentPath,
       path: entryPath
 
     })
@@ -37,7 +37,7 @@ function Collections () {
 
   return (
     <div className='grid gap-5 w-80 mx-auto'>
-      <h2>{location}</h2>
+      <h2>{currentPath}</h2>
       <div className='flex justify-between '>
         <button
           className='w-36'
@@ -52,7 +52,7 @@ function Collections () {
       state
         ? state.collections.map((attrs, index) => {
           const listId =
-            location === 'collections'
+            currentPath === 'collections'
               ? state.collections[0].children
               : state.collections.find(c => c.path === entryPath).children
 
