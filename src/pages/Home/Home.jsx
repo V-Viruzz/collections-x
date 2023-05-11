@@ -26,7 +26,7 @@ function Home () {
       </header>
 
       {/* Contenido de la página */}
-      <main className='grow flex items-center'>
+      <main className='flex items-center justify-center'>
         <CollectionProvider>
           <Outlet />
         </CollectionProvider>

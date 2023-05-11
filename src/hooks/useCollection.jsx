@@ -45,7 +45,6 @@ function useCollection () {
       type: 'add_folder',
       value: data
     })
-
     setCurrentView(state)
   }
 
