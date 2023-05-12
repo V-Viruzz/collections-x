@@ -58,8 +58,6 @@ function useCollection () {
       }
     })
     console.log('addPage', state)
-    // setCurrentView(state)
-    // setCollections(state)
   }
 
   return {

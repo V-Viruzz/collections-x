@@ -13,7 +13,8 @@ export default {
       },
       gridTemplateRows: {
         layout: '12rem, 5rem, auto'
-      }
+      },
+      fontSize: { xxs: '0.6rem' }
     }
   },
   plugins: []

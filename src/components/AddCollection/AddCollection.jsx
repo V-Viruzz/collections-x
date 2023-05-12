@@ -2,24 +2,61 @@ import { useState, useRef } from 'react'
 import useCollection from '../../hooks/useCollection'
 import md5 from 'md5'
 
+const todayDate = () => {
+  const d = new Date()
+  let month = '' + (d.getMonth() + 1)
+  let day = '' + d.getDate()
+  const year = d.getFullYear()
+
+  if (month.length < 2) month = '0' + month
+  if (day.length < 2) day = '0' + day
+
+  return [year, month, day].join('-')
+}
+
 function AddCollection ({ currentPath, entryPath }) {
   const { addFolder } = useCollection()
   const [inputHidden, setInputHidden] = useState(true)
+  const [selectType, setSelectType] = useState(null)
+  const [error, setError] = useState(false)
   const inputRef = useRef(null)
 
   const handleClickForm = () => {
     const name = inputRef.current.value
 
+    if (!selectType) {
+      console.log('null')
+      setError(true)
+      return
+    }
+    if (!name) {
+      console.log('name')
+      setError(true)
+      return
+    }
+
+    const fileSystem = window.localStorage.getItem('fileSystem')
+    const tmp = fileSystem ? JSON.parse(fileSystem).collections : []
+    const existingName = tmp.some(c => c.name === name)
+
+    if (existingName) {
+      console.log('nombre ya existente')
+      setError(true)
+      return
+    }
+
     addFolder({
       name,
-      type: 'folder',
+      type: selectType,
       color: 'primary',
+      date: todayDate(),
       parentID: currentPath === 'collections' ? 'collections' : md5(entryPath + 'folder'),
       parentPath: currentPath,
       path: entryPath
 
     })
     setInputHidden(true)
+    setError(true)
   }
 
   return (
@@ -37,18 +74,34 @@ function AddCollection ({ currentPath, entryPath }) {
         <div className='container mx-auto bg-zinc-900 w-80 h-64 rounded-2xl flex justify-center items-center flex-col gap-4 relative'>
           <button
             className='absolute top-0 right-0 mx-5 my-3 p-0 text-xl border-none hover:border-none bg-inherit focus:border-0'
-            onClick={() => setInputHidden(true)}
+            onClick={() => { setInputHidden(true); setError(false) }}
           >×
           </button>
 
           <h3 className='text-xl'>Crear nuevo</h3>
+
+          <ul className='flex gap-3'>
+            <li
+              className={`${selectType === 'folder' ? 'bg-slate-900' : 'bg-slate-800'} px-4 py-2 rounded-lg`}
+              onClick={() => setSelectType('folder')}
+            >
+              Folder
+            </li>
+            <li
+              className={`${selectType === 'Link' ? 'bg-slate-900' : 'bg-slate-800'} px-4 py-2 rounded-lg`}
+              onClick={() => setSelectType('Link')}
+            >
+              Link
+            </li>
+
+          </ul>
 
           <input
             type='text'
             placeholder='name'
             id='name-folder'
             ref={inputRef}
-            className='block appearance-none w-60 rounded-lg bg-bluegray-900 bg-opacity-50 px-4 py-3 text-center text-base placeholder-bluegray-400 shadow-sm transition duration-300 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-500 focus:ring-opacity-50'
+            className={`${error ? 'border-2 border-red-700' : ''} block appearance-none w-60 rounded-lg bg-bluegray-900 bg-opacity-50 px-4 py-3 text-center text-base placeholder-bluegray-400 shadow-sm transition duration-300 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-500 focus:ring-opacity-50`}
           />
 
           <button className=' bg-slate-800 w-60 h-11 rounded-lg' onClick={handleClickForm}>Crear</button>

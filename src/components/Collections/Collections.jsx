@@ -6,6 +6,7 @@ import AddCollection from '../AddCollection/AddCollection'
 function Collections () {
   const { currentView } = useCollection()
   const [state, setState] = useState()
+  const [listId, setListId] = useState()
   const [reload, setReload] = useState(false)
   const currentPath = window.location.href.split('/').pop()
   const pathFull = window.location.href.split('/')
@@ -13,8 +14,15 @@ function Collections () {
   const entryPath = pathFull.splice(index).join('/')
 
   useEffect(() => {
-    const tmp = JSON.parse(window.localStorage.getItem('fileSystem'))
+    const fileSystem = window.localStorage.getItem('fileSystem')
+    const tmp = fileSystem ? JSON.parse(fileSystem).collections : []
     setState(tmp || null)
+    setListId(() => {
+      if (!tmp[0]) return
+      return currentPath === 'collections'
+        ? tmp[0].children
+        : tmp.find(c => c.path === entryPath).children
+    })
 
     const handleBackButton = () => {
       console.log("El usuario ha presionado el botón 'atrás'")
@@ -44,20 +52,16 @@ function Collections () {
 
       <div className='flex flex-col gap-4 '>
         {
-      state
-        ? state.collections.map((attrs) => {
-          const listId =
-            currentPath === 'collections'
-              ? state.collections[0].children
-              : state.collections.find(c => c.path === entryPath).children
-
-          if (listId.includes(attrs.id)) {
-            return <FolderCollection key={attrs.id} {...attrs} entryPath={entryPath} />
-          } else {
-            return null
-          }
-        })
-        : null
+        state
+          ? state.map((attrs) => {
+            if (listId.includes(attrs.id)) {
+              console.log(attrs.type)
+              return <FolderCollection key={attrs.id} {...attrs} entryPath={entryPath} />
+            } else {
+              return null
+            }
+          })
+          : null
         }
       </div>
 
