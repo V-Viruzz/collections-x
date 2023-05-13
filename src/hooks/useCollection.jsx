@@ -20,15 +20,14 @@ function reducer (state, action) {
 
   if (action.type === 'add_folder') {
     newEntry.path = `${newEntry.path}/${newEntry.name}`
-
     if (newEntry.type === 'folder') {
       newEntry.children = []
     }
     const id = md5(newEntry.path + newEntry.type)
     newEntry.id = id
     state.collections.push(newEntry)
+
     const index = state.collections.findIndex(item => item.id === newEntry.parentID)
-    console.log('parentID', newEntry.parentID)
     if (index !== -1) {
       state.collections[index].children.push(id)
     }
@@ -37,7 +36,7 @@ function reducer (state, action) {
   }
 }
 function useCollection () {
-  const { setCurrentView, currentView } = useContext(CollectionContext)
+  const { setCurrentView, currentView, setReload, reload } = useContext(CollectionContext)
   const [state, dispatch] = useReducer(reducer, initialState)
 
   const addFolder = (data) => {
@@ -64,7 +63,9 @@ function useCollection () {
     addFolder,
     addPage,
     currentView,
-    setCurrentView
+    setCurrentView,
+    setReload,
+    reload
   }
 }
 

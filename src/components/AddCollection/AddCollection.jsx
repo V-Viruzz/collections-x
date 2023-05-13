@@ -56,7 +56,7 @@ function AddCollection ({ currentPath, entryPath }) {
 
     })
     setInputHidden(true)
-    setError(true)
+    setError(false)
   }
 
   return (
@@ -88,8 +88,8 @@ function AddCollection ({ currentPath, entryPath }) {
               Folder
             </li>
             <li
-              className={`${selectType === 'Link' ? 'bg-slate-900' : 'bg-slate-800'} px-4 py-2 rounded-lg`}
-              onClick={() => setSelectType('Link')}
+              className={`${selectType === 'link' ? 'bg-slate-900' : 'bg-slate-800'} px-4 py-2 rounded-lg`}
+              onClick={() => setSelectType('link')}
             >
               Link
             </li>
