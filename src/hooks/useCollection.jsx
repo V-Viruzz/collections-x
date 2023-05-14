@@ -2,18 +2,22 @@ import { useContext, useReducer } from 'react'
 import { CollectionContext } from '../context/collection'
 import md5 from 'md5'
 
-const initialState = {
-  user: 'Viruz',
-  collections: [{
-    id: 'collections',
-    type: '__folder__',
-    name: 'collections',
-    path: '/',
-    parentPath: null,
-    parentID: null,
-    children: []
-  }]
-}
+const saveCollection = JSON.parse(window.localStorage.getItem('fileSystem'))
+
+const initialState = !saveCollection
+  ? {
+      user: 'Viruz',
+      collections: [{
+        id: 'collections',
+        type: '__folder__',
+        name: 'collections',
+        path: '/',
+        parentPath: null,
+        parentID: null,
+        children: []
+      }]
+    }
+  : saveCollection
 
 function reducer (state, action) {
   const newEntry = { ...action.value }

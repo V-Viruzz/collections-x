@@ -25,6 +25,8 @@ function Collections () {
         : tmp.find(c => c.path === entryPath).children
     })
 
+    console.log('listId', listId)
+
     const handleBackButton = () => {
       console.log("El usuario ha presionado el botón 'atrás'")
       setReload(!reload)
@@ -48,7 +50,7 @@ function Collections () {
           currentPath !== 'collections'
             ? <button onClick={handleGoBack}>
               <svg width='18px' height='18px' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg' fill='#ffffff'><g id='SVGRepo_bgCarrier' strokeWidth='0' /><g id='SVGRepo_tracerCarrier' strokeLinecap='round' strokeLinejoin='round' /><g id='SVGRepo_iconCarrier'> <title /> <g id='Complete'> <g id='F-Chevron'> <polyline fill='none' id='Left' points='15.5 5 8.5 12 15.5 19' stroke='#ffffff' strokeLinecap='round' strokeLinejoin='round' strokeWidth='2' /> </g> </g> </g></svg>
-              </button>
+            </button>
             : null
           }
 

@@ -1,36 +1,27 @@
 import { useState, useRef } from 'react'
 import useCollection from '../../hooks/useCollection'
+import todayDate from '../../utils/todayDate'
 import md5 from 'md5'
-
-const todayDate = () => {
-  const d = new Date()
-  let month = '' + (d.getMonth() + 1)
-  let day = '' + d.getDate()
-  const year = d.getFullYear()
-
-  if (month.length < 2) month = '0' + month
-  if (day.length < 2) day = '0' + day
-
-  return [year, month, day].join('-')
-}
 
 function AddCollection ({ currentPath, entryPath }) {
   const { addFolder } = useCollection()
   const [inputHidden, setInputHidden] = useState(true)
   const [selectType, setSelectType] = useState(null)
   const [error, setError] = useState(false)
-  const inputRef = useRef(null)
+  const nameRef = useRef(null)
+  const linkRef = useRef(null)
 
   const handleClickForm = () => {
-    const name = inputRef.current.value
+    const name = nameRef.current.value
+    const link = selectType === 'link' ? linkRef.current.value : null
 
     if (!selectType) {
-      console.log('null')
+      console.log('type is not specified')
       setError(true)
       return
     }
     if (!name) {
-      console.log('name')
+      console.log('name is not specified')
       setError(true)
       return
     }
@@ -40,13 +31,14 @@ function AddCollection ({ currentPath, entryPath }) {
     const existingName = tmp.some(c => c.name === name)
 
     if (existingName) {
-      console.log('nombre ya existente')
+      console.log('name exists')
       setError(true)
       return
     }
 
     addFolder({
       name,
+      link,
       type: selectType,
       color: 'primary',
       date: todayDate(),
@@ -71,7 +63,7 @@ function AddCollection ({ currentPath, entryPath }) {
       </div>
 
       <div className={`fixed z-50 inset-0 items-center justify-center ${inputHidden ? 'hidden' : 'flex'}`}>
-        <div className='container mx-auto bg-zinc-900 w-80 h-64 rounded-2xl flex justify-center items-center flex-col gap-4 relative'>
+        <div className='container mx-auto bg-zinc-900 w-80 py-10 rounded-2xl flex justify-center items-center flex-col gap-4 relative'>
           <button
             className='absolute top-0 right-0 mx-5 my-3 p-0 text-xl border-none hover:border-none bg-inherit focus:border-0'
             onClick={() => { setInputHidden(true); setError(false) }}
@@ -100,9 +92,20 @@ function AddCollection ({ currentPath, entryPath }) {
             type='text'
             placeholder='name'
             id='name-folder'
-            ref={inputRef}
+            ref={nameRef}
             className={`${error ? 'border-2 border-red-700' : ''} block appearance-none w-60 rounded-lg bg-bluegray-900 bg-opacity-50 px-4 py-3 text-center text-base placeholder-bluegray-400 shadow-sm transition duration-300 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-500 focus:ring-opacity-50`}
           />
+          {
+            selectType === 'link'
+              ? <input
+                  type='text'
+                  placeholder='link'
+                  id='link'
+                  ref={linkRef}
+                  className={`${error ? 'border-2 border-red-700' : ''} block appearance-none w-60 rounded-lg bg-bluegray-900 bg-opacity-50 px-4 py-3 text-center text-base placeholder-bluegray-400 shadow-sm transition duration-300 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-500 focus:ring-opacity-50`}
+                />
+              : null
+          }
 
           <button className=' bg-slate-800 w-60 h-11 rounded-lg' onClick={handleClickForm}>Crear</button>
 
