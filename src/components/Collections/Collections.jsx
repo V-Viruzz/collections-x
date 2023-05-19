@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import useCollection from '../../hooks/useCollection'
 import RenderCollection from '../RenderCollection/RenderCollection'
 import AddCollection from '../AddCollection/AddCollection'
+import { DragDropContext } from '@hello-pangea/dnd'
 
 function Collections () {
   const { currentView, reload, setReload } = useCollection()
@@ -25,8 +26,6 @@ function Collections () {
         : tmp.find(c => c.path === entryPath).children
     })
 
-    console.log('listId', listId)
-
     const handleBackButton = () => {
       console.log("El usuario ha presionado el botón 'atrás'")
       setReload(!reload)
@@ -42,6 +41,10 @@ function Collections () {
     window.history.back()
   }
 
+  const onDragEnd = (result) => {
+
+  }
+
   return (
     <div className='grid gap-5 w-[22rem] mt-6'>
       <div className='flex justify-between'>
@@ -49,13 +52,28 @@ function Collections () {
           {
           currentPath !== 'collections'
             ? <button onClick={handleGoBack}>
-              <svg width='18px' height='18px' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg' fill='#ffffff'><g id='SVGRepo_bgCarrier' strokeWidth='0' /><g id='SVGRepo_tracerCarrier' strokeLinecap='round' strokeLinejoin='round' /><g id='SVGRepo_iconCarrier'> <title /> <g id='Complete'> <g id='F-Chevron'> <polyline fill='none' id='Left' points='15.5 5 8.5 12 15.5 19' stroke='#ffffff' strokeLinecap='round' strokeLinejoin='round' strokeWidth='2' /> </g> </g> </g></svg>
-            </button>
+              <svg width='18px' height='18px' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg' fill='#ffffff'>
+                <g id='SVGRepo_bgCarrier' strokeWidth='0' /><g id='SVGRepo_tracerCarrier' strokeLinecap='round' strokeLinejoin='round' />
+                <g id='SVGRepo_iconCarrier'>
+                  <title />
+                  <g id='Complete'>
+                    <g id='F-Chevron'>
+                      <polyline fill='none' id='Left' points='15.5 5 8.5 12 15.5 19' stroke='#ffffff' strokeLinecap='round' strokeLinejoin='round' strokeWidth='2' />
+                    </g>
+                  </g>
+                </g>
+              </svg>
+              </button>
             : null
           }
 
           <h2 className='text-base font-bold'>{currentPath}</h2>
-          <svg fill='#ffffff' width='24px' height='24px' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'><g id='SVGRepo_bgCarrier' strokeWidth='0' /><g id='SVGRepo_tracerCarrier' strokeLinecap='round' strokeLinejoin='round' /><g id='SVGRepo_iconCarrier'><path d='M2.165 19.551c.186.28.499.449.835.449h15c.4 0 .762-.238.919-.606l3-7A.998.998 0 0 0 21 11h-1V8c0-1.103-.897-2-2-2h-6.655L8.789 4H4c-1.103 0-2 .897-2 2v13h.007a1 1 0 0 0 .158.551zM18 8v3H6c-.4 0-.762.238-.919.606L4 14.129V8h14z' /></g></svg>
+          <svg fill='#ffffff' width='24px' height='24px' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+            <g id='SVGRepo_bgCarrier' strokeWidth='0' /><g id='SVGRepo_tracerCarrier' strokeLinecap='round' strokeLinejoin='round' />
+            <g id='SVGRepo_iconCarrier'>
+              <path d='M2.165 19.551c.186.28.499.449.835.449h15c.4 0 .762-.238.919-.606l3-7A.998.998 0 0 0 21 11h-1V8c0-1.103-.897-2-2-2h-6.655L8.789 4H4c-1.103 0-2 .897-2 2v13h.007a1 1 0 0 0 .158.551zM18 8v3H6c-.4 0-.762.238-.919.606L4 14.129V8h14z' />
+            </g>
+          </svg>
         </div>
 
         <AddCollection
@@ -65,15 +83,18 @@ function Collections () {
       </div>
 
       <div className='flex flex-col gap-4 '>
-        {
-        state
-          ? state
-            .filter((attrs) => listId.includes(attrs.id))
-            .map((attrs) => (
-              <RenderCollection key={attrs.id} attrs={attrs} entryPath={entryPath} />
-            ))
-          : null
-        }
+        <DragDropContext onDragEnd={onDragEnd}>
+
+          {
+          state
+            ? state
+              .filter((attrs) => listId.includes(attrs.id))
+              .map((attrs) => (
+                <RenderCollection key={attrs.id} attrs={attrs} entryPath={entryPath} />
+              ))
+            : null
+          }
+        </DragDropContext>
       </div>
 
     </div>

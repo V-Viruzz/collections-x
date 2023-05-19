@@ -1,4 +1,4 @@
-import { useContext, useReducer } from 'react'
+import { useContext, useReducer, useEffect } from 'react'
 import { CollectionContext } from '../context/collection'
 import md5 from 'md5'
 
@@ -39,33 +39,43 @@ function reducer (state, action) {
     return { ...state }
   }
 }
+
 function useCollection () {
   const { setCurrentView, currentView, setReload, reload } = useContext(CollectionContext)
   const [state, dispatch] = useReducer(reducer, initialState)
 
-  const addFolder = (data) => {
+  const addItem = (data) => {
     dispatch({
       type: 'add_folder',
       value: data
     })
-    setCurrentView(state)
   }
 
-  const addPage = (name) => {
-    dispatch({
-      type: 'add_page',
-      value: {
-        name,
-        type: 'page',
-        color: 'primary'
-      }
-    })
-    console.log('addPage', state)
-  }
+  // useEffect(() => {
+  //   const fileSystem = window.localStorage.getItem('fileSystem')
+  //   const tmp = fileSystem ? JSON.parse(fileSystem).collections : []
+
+  //   setState(tmp || null)
+  //   setListId(() => {
+  //     if (!tmp[0]) return
+  //     return currentPath === 'collections'
+  //       ? tmp[0].children
+  //       : tmp.find(c => c.path === entryPath).children
+  //   })
+
+  //   const handleBackButton = () => {
+  //     console.log("El usuario ha presionado el botón 'atrás'")
+  //     setReload(!reload)
+  //   }
+
+  //   window.addEventListener('popstate', handleBackButton)
+  //   return () => {
+  //     window.removeEventListener('popstate', handleBackButton)
+  //   }
+  // }, [reload])
 
   return {
-    addFolder,
-    addPage,
+    addItem,
     currentView,
     setCurrentView,
     setReload,

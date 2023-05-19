@@ -4,7 +4,7 @@ import todayDate from '../../utils/todayDate'
 import md5 from 'md5'
 
 function AddCollection ({ currentPath, entryPath }) {
-  const { addFolder } = useCollection()
+  const { addItem, setReload, reload } = useCollection()
   const [inputHidden, setInputHidden] = useState(true)
   const [selectType, setSelectType] = useState(null)
   const [error, setError] = useState(false)
@@ -36,7 +36,7 @@ function AddCollection ({ currentPath, entryPath }) {
       return
     }
 
-    addFolder({
+    addItem({
       name,
       link,
       type: selectType,
@@ -49,14 +49,43 @@ function AddCollection ({ currentPath, entryPath }) {
     })
     setInputHidden(true)
     setError(false)
+    setReload(!reload)
+  }
+
+  const handleClickOption = () => {
+    console.log('mover')
   }
 
   return (
     <>
-      <div className='flex justify-between '>
+      <div className='flex justify-between gap-3'>
 
+        <button onClick={handleClickOption}>
+          <svg fill='#ffffff' width='17' height='17' viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg' transform='rotate(90)'>
+            <g strokeWidth='0' id='SVGRepo_bgCarrier' />
+            <g strokeLinecap='round' strokeLinejoin='round' id='SVGRepo_tracerCarrier' />
+            <g id='SVGRepo_iconCarrier'>
+              <title>elipsis</title>
+              <path d='M0.384 16q0 1.632 1.12 2.784t2.784 1.12 2.752-1.12 1.152-2.784-1.152-2.752-2.752-1.152-2.784 1.152-1.12 2.752zM12.096 16q0 1.632 1.152 2.784t2.752 1.12 2.752-1.12 1.152-2.784-1.152-2.752-2.752-1.152-2.752 1.152-1.152 2.752zM23.808 16q0 1.632 1.152 2.784t2.752 1.12 2.784-1.12 1.12-2.784-1.12-2.752-2.784-1.152-2.752 1.152-1.152 2.752z' />
+            </g>
+          </svg>
+        </button>
         <button onClick={() => setInputHidden(false)}>
-          <svg width='24px' height='24px' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg' fill='#000000'><g id='SVGRepo_bgCarrier' strokeWidth='0' /><g id='SVGRepo_tracerCarrier' strokeLinecap='round' strokeLinejoin='round' /><g id='SVGRepo_iconCarrier'> <title /> <g id='Complete'> <g id='add-square'> <g> <rect data-name='--Rectangle' fill='none' height='20' id='_--Rectangle' rx='2' ry='2' stroke='#ffffff' strokeLinecap='round' strokeLinejoin='round' strokeWidth='2' width='20' x='2' y='2' /> <line fill='none' stroke='#ffffff' strokeLinecap='round' strokeLinejoin='round' strokeWidth='2' x1='15.5' x2='8.5' y1='12' y2='12' /> <line fill='none' stroke='#ffffff' strokeLinecap='round' strokeLinejoin='round' strokeWidth='2' x1='12' x2='12' y1='15.5' y2='8.5' /> </g> </g> </g> </g></svg>
+          <svg width='24px' height='24px' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg' fill='#000000'>
+            <g id='SVGRepo_bgCarrier' strokeWidth='0' /><g id='SVGRepo_tracerCarrier' strokeLinecap='round' strokeLinejoin='round' />
+            <g id='SVGRepo_iconCarrier'>
+              <title />
+              <g id='Complete'>
+                <g id='add-square'>
+                  <g>
+                    <rect data-name='--Rectangle' fill='none' height='20' id='_--Rectangle' rx='2' ry='2' stroke='#ffffff' strokeLinecap='round' strokeLinejoin='round' strokeWidth='2' width='20' x='2' y='2' />
+                    <line fill='none' stroke='#ffffff' strokeLinecap='round' strokeLinejoin='round' strokeWidth='2' x1='15.5' x2='8.5' y1='12' y2='12' />
+                    <line fill='none' stroke='#ffffff' strokeLinecap='round' strokeLinejoin='round' strokeWidth='2' x1='12' x2='12' y1='15.5' y2='8.5' />
+                  </g>
+                </g>
+              </g>
+            </g>
+          </svg>
         </button>
 
         {/* <button className='w-36' onClick={() => console.log(state)}>view</button> */}
