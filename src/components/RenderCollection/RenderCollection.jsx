@@ -1,7 +1,7 @@
 import FolderCollection from '../FolderCollection/FolderCollection'
 import LinkCollection from '../LinkCollection/LinkCollection'
 
-function RenderCollection ({ attrs, entryPath }) {
+function RenderCollection ({ attrs, entryPath, index }) {
   const showCollection = () => {
     if (attrs.type === 'folder') {
       return <FolderCollection key={attrs.id} {...attrs} entryPath={entryPath} />

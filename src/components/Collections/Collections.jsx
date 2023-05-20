@@ -1,48 +1,12 @@
-import { useEffect, useState } from 'react'
 import useCollection from '../../hooks/useCollection'
-import RenderCollection from '../RenderCollection/RenderCollection'
 import AddCollection from '../AddCollection/AddCollection'
-import { DragDropContext } from '@hello-pangea/dnd'
+import ListCollections from '../ListCollections/ListCollections'
 
 function Collections () {
-  const { currentView, reload, setReload } = useCollection()
-  const [state, setState] = useState()
-  const [listId, setListId] = useState()
-
-  const currentPath = window.location.href.split('/').pop()
-  const pathFull = window.location.href.split('/')
-  const index = pathFull.indexOf('collections')
-  const entryPath = pathFull.splice(index).join('/')
-
-  useEffect(() => {
-    const fileSystem = window.localStorage.getItem('fileSystem')
-    const tmp = fileSystem ? JSON.parse(fileSystem).collections : []
-
-    setState(tmp || null)
-    setListId(() => {
-      if (!tmp[0]) return
-      return currentPath === 'collections'
-        ? tmp[0].children
-        : tmp.find(c => c.path === entryPath).children
-    })
-
-    const handleBackButton = () => {
-      console.log("El usuario ha presionado el botón 'atrás'")
-      setReload(!reload)
-    }
-
-    window.addEventListener('popstate', handleBackButton)
-    return () => {
-      window.removeEventListener('popstate', handleBackButton)
-    }
-  }, [currentView, reload])
+  const { currentView, listId, setCurrentView, currentPath, entryPath } = useCollection()
 
   const handleGoBack = () => {
     window.history.back()
-  }
-
-  const onDragEnd = (result) => {
-
   }
 
   return (
@@ -63,7 +27,7 @@ function Collections () {
                   </g>
                 </g>
               </svg>
-              </button>
+            </button>
             : null
           }
 
@@ -81,22 +45,7 @@ function Collections () {
           entryPath={entryPath}
         />
       </div>
-
-      <div className='flex flex-col gap-4 '>
-        <DragDropContext onDragEnd={onDragEnd}>
-
-          {
-          state
-            ? state
-              .filter((attrs) => listId.includes(attrs.id))
-              .map((attrs) => (
-                <RenderCollection key={attrs.id} attrs={attrs} entryPath={entryPath} />
-              ))
-            : null
-          }
-        </DragDropContext>
-      </div>
-
+      <ListCollections currentView={currentView} listId={listId} setCurrentView={setCurrentView} entryPath={entryPath} />
     </div>
   )
 }

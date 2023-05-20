@@ -22,6 +22,7 @@ function FolderCollection (props) {
   }
 
   return (
+
     <DirLink {...props}>
       <div className='flex w-full h-32 rounded-2xl' onClick={handleClick}>
 
@@ -41,6 +42,7 @@ function FolderCollection (props) {
 
       </div>
     </DirLink>
+
   )
 }
 

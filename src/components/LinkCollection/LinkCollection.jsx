@@ -5,6 +5,7 @@ function FolderCollection (props) {
     .split('/')[0]
 
   return (
+
     <a href={props.link} target='_blank' rel='noreferrer'>
       <div className='flex w-full h-32 rounded-2xl'>
 
@@ -32,6 +33,7 @@ function FolderCollection (props) {
 
       </div>
     </a>
+
   )
 }
 
