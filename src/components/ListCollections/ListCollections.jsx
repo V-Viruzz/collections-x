@@ -1,8 +1,12 @@
+import { useCallback } from 'react'
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd'
 import RenderCollection from '../RenderCollection/RenderCollection'
+import useCollection from '../../hooks/useCollection'
 
 function ListCollections ({ currentView, listId, setCurrentView, entryPath }) {
-  const onDragEnd = (result) => {
+  const { setReload } = useCollection()
+
+  const onDragEnd = useCallback((result) => {
     const { source, destination } = result
     if (!destination) return
     if (
@@ -22,17 +26,14 @@ function ListCollections ({ currentView, listId, setCurrentView, entryPath }) {
 
       newList[index].children = select
 
-      console.log(select)
       const fileSystem = JSON.parse(window.localStorage.getItem('fileSystem'))
       fileSystem.collections = newList
       window.localStorage.setItem('fileSystem', JSON.stringify(fileSystem))
-      console.log(newList)
+
+      setReload(prev => !prev)
       return newList
     })
-
-    // const column = state.columns[source.droppableId]
-    // const newTaskId = Array.from(column.taskIds)
-  }
+  })
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
@@ -44,35 +45,35 @@ function ListCollections ({ currentView, listId, setCurrentView, entryPath }) {
             className='flex flex-col gap-4 '
           >
             {
-              currentView
-                ? currentView
-                  .filter((attrs) => listId.includes(attrs.id))
-                  .map((attrs, index) => {
-                    return (
-                      <Draggable
-                        key={attrs.id}
-                        index={index}
-                        draggableId={attrs.id}
-                      >
-                        {draggableProvided => (
-                          <li
-                            ref={draggableProvided.innerRef}
-                            {...draggableProvided.draggableProps}
-                            {...draggableProvided.dragHandleProps}
-                          >
-                            <RenderCollection
-                              key={attrs.id}
-                              attrs={attrs}
-                              index={index}
-                              entryPath={entryPath}
-                            />
-                          </li>
-                        )}
+            listId
+              ? listId
+                .map((item, index) => {
+                  const attrs = currentView.find(c => c.id === item)
+                  return (
+                    <Draggable
+                      key={attrs.id}
+                      index={index}
+                      draggableId={attrs.id}
+                    >
+                      {draggableProvided => (
+                        <li
+                          ref={draggableProvided.innerRef}
+                          {...draggableProvided.draggableProps}
+                          {...draggableProvided.dragHandleProps}
+                        >
+                          <RenderCollection
+                            key={attrs.id}
+                            attrs={attrs}
+                            index={index}
+                            entryPath={entryPath}
+                          />
+                        </li>
+                      )}
 
-                      </Draggable>
-                    )
-                  })
-                : null
+                    </Draggable>
+                  )
+                })
+              : null
                }
             {droppableProvided.placeholder}
           </ul>)}
