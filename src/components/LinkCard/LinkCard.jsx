@@ -1,4 +1,4 @@
-function FolderCollection (props) {
+function LinkCard (props) {
   const link = props.link
     .replace('https://', '')
     .replace('http://', '')
@@ -37,4 +37,4 @@ function FolderCollection (props) {
   )
 }
 
-export default FolderCollection
+export default LinkCard

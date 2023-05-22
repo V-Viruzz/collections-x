@@ -22,8 +22,10 @@ const initialState = !saveCollection
 function reducer (state, action) {
   const newEntry = { ...action.value }
 
+  const namePath = newEntry.name.replace(' ', '-')
+
   if (action.type === 'add_folder') {
-    newEntry.path = `${newEntry.path}/${newEntry.name}`
+    newEntry.path = `${newEntry.path}/${namePath}`
     if (newEntry.type === 'folder') {
       newEntry.children = []
     }
@@ -65,7 +67,6 @@ function useCollection () {
 
     setListId(() => {
       if (!tmp[0]) {
-        console.log('tmp')
         return
       }
 
@@ -78,8 +79,6 @@ function useCollection () {
       console.log("El usuario ha presionado el botón 'atrás'")
       setReload(!reload)
     }
-    // console.log('currentView', currentView)
-    // console.log('listId', listId)
 
     window.addEventListener('popstate', handleBackButton)
     return () => {

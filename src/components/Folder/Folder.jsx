@@ -1,7 +1,7 @@
 import useCollection from '../../hooks/useCollection'
 import { Link } from 'react-router-dom'
 
-function FolderCollection (props) {
+function Folder (props) {
   const { reload, setReload } = useCollection()
 
   const handleClick = () => {
@@ -46,4 +46,4 @@ function FolderCollection (props) {
   )
 }
 
-export default FolderCollection
+export default Folder

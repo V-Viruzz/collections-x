@@ -1,5 +1,5 @@
-import FolderCollection from '../FolderCollection/FolderCollection'
-import LinkCollection from '../LinkCollection/LinkCollection'
+import FolderCollection from '../Folder/Folder'
+import LinkCollection from '../LinkCard/LinkCard'
 
 function RenderCollection ({ attrs, entryPath, index }) {
   const showCollection = () => {

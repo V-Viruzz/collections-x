@@ -35,7 +35,7 @@ function AddCollection ({ currentPath, entryPath }) {
       setError(true)
       return
     }
-
+    console.log(entryPath)
     addItem({
       name,
       link,

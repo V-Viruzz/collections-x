@@ -1,12 +1,17 @@
 import useCollection from '../../hooks/useCollection'
 import AddCollection from '../AddCollection/AddCollection'
 import ListCollections from '../ListCollections/ListCollections'
+import { useNavigate } from 'react-router-dom'
 
 function Collections () {
-  const { currentView, listId, setCurrentView, currentPath, entryPath } = useCollection()
+  const { currentView, listId, setCurrentView, currentPath, entryPath, setReload } = useCollection()
+  const navigate = useNavigate()
 
   const handleGoBack = () => {
-    window.history.back()
+    const backPath = entryPath.split('/')
+    backPath.pop()
+    navigate(`/${backPath.join('/')}`)
+    setReload(prev => !prev)
   }
 
   return (
@@ -14,8 +19,8 @@ function Collections () {
       <div className='flex justify-between'>
         <div className='flex gap-2 items-center'>
           {
-          currentPath !== 'collections'
-            ? <button onClick={handleGoBack}>
+          currentPath !== 'collections' &&
+            <button onClick={handleGoBack}>
               <svg width='18px' height='18px' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg' fill='#ffffff'>
                 <g id='SVGRepo_bgCarrier' strokeWidth='0' /><g id='SVGRepo_tracerCarrier' strokeLinecap='round' strokeLinejoin='round' />
                 <g id='SVGRepo_iconCarrier'>
@@ -28,7 +33,6 @@ function Collections () {
                 </g>
               </svg>
             </button>
-            : null
           }
 
           <h2 className='text-base font-bold'>{currentPath}</h2>
@@ -45,7 +49,12 @@ function Collections () {
           entryPath={entryPath}
         />
       </div>
-      <ListCollections currentView={currentView} listId={listId} setCurrentView={setCurrentView} entryPath={entryPath} />
+      <ListCollections
+        listId={listId}
+        currentView={currentView}
+        setCurrentView={setCurrentView}
+        entryPath={entryPath}
+      />
     </div>
   )
 }
