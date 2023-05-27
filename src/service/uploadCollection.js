@@ -15,7 +15,7 @@ async function uploadCollection (data) {
     body: JSON.stringify(data)
   }
 
-  fetch('http://localhost:3001/saveCollections', options)
+  fetch('https://collection-hh70f7hpd-viruzzz0.vercel.app/saveCollections', options)
     .then(response => response.json())
     .then(response => console.log(response))
     .catch(err => console.error(err))

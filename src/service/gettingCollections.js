@@ -10,7 +10,7 @@ async function gettingCollections () {
     body: user.uid
   }
   try {
-    const res = await fetch('http://localhost:3001/gettingCollections', options)
+    const res = await fetch('https://collection-hh70f7hpd-viruzzz0.vercel.app/gettingCollections', options)
     const data = await res.json()
 
     return data
