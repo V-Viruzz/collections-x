@@ -12,6 +12,7 @@ export function CollectionProvider ({ children }) {
       setCurrentView,
       reload,
       setReload
+
     }}
     >
       {children}

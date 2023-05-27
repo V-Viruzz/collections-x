@@ -12,6 +12,7 @@ function useLogin () {
         // console.log('user is already logged in', user)
         setIsLogin(user.emailVerified)
         setCurrentUser(user)
+        // navigate('/collections')
       } else {
         console.log('user is not logged in')
         setIsLogin(null)

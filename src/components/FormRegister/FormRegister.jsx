@@ -5,6 +5,7 @@ import { ErrorContext } from '../../context/error'
 import { useNavigate } from 'react-router-dom'
 import Input from '../Input/Input'
 import css from './Form.module.css'
+import registerUser from '../../service/registerUser'
 
 function FormRegister () {
   const { handleError } = useContext(ErrorContext)
@@ -17,8 +18,10 @@ function FormRegister () {
 
     try {
       const userCredentials = await createUserWithEmailAndPassword(auth, email, password)
-      sendEmailVerification(auth.currentUser).then(() => console.log('correo enviado'))
+      sendEmailVerification(auth.currentUser)
+        .then(() => console.log('correo enviado'))
 
+      registerUser(userCredentials)
       if (!userCredentials.user.emailVerified) {
         console.log('first')
       }
@@ -49,7 +52,7 @@ function FormRegister () {
           <p className='text-sm'>aceptas los termino y condiciones</p>
         </div>
 
-        <button className=' bg-slate-800 '>Continuar</button>
+        <button className=' bg-slate-800 w-full h-11 rounded-lg '>Continuar</button>
 
       </form>
     </div>

@@ -1,8 +1,9 @@
-import useCollection from '../../hooks/useCollection'
 import { Link } from 'react-router-dom'
+import { CollectionContext } from '../../context/collection'
+import { useContext } from 'react'
 
 function Folder (props) {
-  const { reload, setReload } = useCollection()
+  const { reload, setReload } = useContext(CollectionContext)
 
   const handleClick = () => {
     // console.log('click', props)

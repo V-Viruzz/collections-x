@@ -4,11 +4,12 @@ import { auth } from '../../service/firebase'
 import { signOut } from 'firebase/auth'
 
 function UserMenu () {
-  const { isLogin } = useLogin(auth)
+  const { isLogin } = useLogin()
 
   const handleClick = async () => {
     await signOut(auth)
     console.log('user signed out')
+    window.localStorage.clear()
   }
 
   if (!isLogin) {

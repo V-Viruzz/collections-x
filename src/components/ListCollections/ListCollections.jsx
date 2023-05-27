@@ -1,10 +1,12 @@
-import { useCallback } from 'react'
+import { useCallback, useContext } from 'react'
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd'
 import RenderCollection from '../RenderCollection/RenderCollection'
-import useCollection from '../../hooks/useCollection'
+import uploadCollection from '../../service/uploadCollection'
+
+import { CollectionContext } from '../../context/collection'
 
 function ListCollections ({ currentView, listId, setCurrentView, entryPath }) {
-  const { setReload } = useCollection()
+  const { setReload } = useContext(CollectionContext)
 
   const onDragEnd = useCallback((result) => {
     const { source, destination } = result
@@ -29,6 +31,8 @@ function ListCollections ({ currentView, listId, setCurrentView, entryPath }) {
       const fileSystem = JSON.parse(window.localStorage.getItem('fileSystem'))
       fileSystem.collections = newList
       window.localStorage.setItem('fileSystem', JSON.stringify(fileSystem))
+
+      uploadCollection(fileSystem)
 
       setReload(prev => !prev)
       return newList

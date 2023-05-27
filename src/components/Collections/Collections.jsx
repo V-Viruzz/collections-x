@@ -4,7 +4,7 @@ import ListCollections from '../ListCollections/ListCollections'
 import { useNavigate } from 'react-router-dom'
 
 function Collections () {
-  const { currentView, listId, setCurrentView, currentPath, entryPath, setReload } = useCollection()
+  const { currentView, listId, setCurrentView, currentPath, entryPath, setReload, addItem } = useCollection()
   const navigate = useNavigate()
 
   const handleGoBack = () => {
@@ -47,6 +47,7 @@ function Collections () {
         <AddCollection
           currentPath={currentPath}
           entryPath={entryPath}
+          addItem={addItem}
         />
       </div>
       <ListCollections

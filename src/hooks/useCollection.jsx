@@ -1,25 +1,17 @@
 import { useContext, useReducer, useEffect, useState } from 'react'
 import { CollectionContext } from '../context/collection'
+import uploadCollection from '../service/uploadCollection'
+import gettingCollections from '../service/gettingCollections'
 import md5 from 'md5'
 
-const saveCollection = JSON.parse(window.localStorage.getItem('fileSystem'))
-
-const initialState = !saveCollection
-  ? {
-      user: 'Viruz',
-      collections: [{
-        id: 'collections',
-        type: '__folder__',
-        name: 'collections',
-        path: 'collections',
-        parentPath: null,
-        parentID: null,
-        children: []
-      }]
-    }
-  : saveCollection
+const initialState = {}
 
 function reducer (state, action) {
+  if (action.type === 'SET_DATA') {
+    window.localStorage.setItem('fileSystem', JSON.stringify(action.value))
+    return action.value
+  }
+
   const newEntry = { ...action.value }
 
   const namePath = newEntry.name.replace(' ', '-')
@@ -38,6 +30,7 @@ function reducer (state, action) {
       state.collections[index].children.push(id)
     }
     window.localStorage.setItem('fileSystem', JSON.stringify(state))
+    uploadCollection(state)
     return { ...state }
   }
 }
@@ -58,6 +51,14 @@ function useCollection () {
       value: data
     })
   }
+
+  useEffect(() => {
+    gettingCollections()
+      .then((res) => {
+        console.log('res :>> ', res)
+        dispatch({ type: 'SET_DATA', value: res.user })
+      })
+  }, [])
 
   useEffect(() => {
     const fileSystem = window.localStorage.getItem('fileSystem')
@@ -87,6 +88,7 @@ function useCollection () {
   }, [reload])
 
   return {
+    state,
     addItem,
     currentView,
     setCurrentView,

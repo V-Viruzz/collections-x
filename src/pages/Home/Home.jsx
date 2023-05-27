@@ -1,8 +1,11 @@
 import UserMenu from '../../components/UserMenu/UserMenu'
 import { CollectionProvider } from '../../context/collection'
-import { Outlet } from 'react-router-dom'
+import { Link, Outlet } from 'react-router-dom'
+import useLogin from '../../hooks/useLogin'
 
 function Home () {
+  const { isLogin } = useLogin()
+
   return (
     <div className='flex flex-col min-h-screen w-screen'>
       {/* Header */}
@@ -27,9 +30,12 @@ function Home () {
 
       {/* Contenido de la página */}
       <main className='flex items-center justify-center'>
-        <CollectionProvider>
-          <Outlet />
-        </CollectionProvider>
+        {isLogin
+          ? <CollectionProvider>
+            <Outlet />
+          </CollectionProvider>
+          : <Link to='/collections'>Collections</Link>}
+
       </main>
 
       {/* Footer */}

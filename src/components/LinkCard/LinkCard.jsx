@@ -1,12 +1,15 @@
 function LinkCard (props) {
-  const link = props.link
+  const textLink = props.link
     .replace('https://', '')
     .replace('http://', '')
     .split('/')[0]
 
+  const ishttps = props.link.includes('https://' || 'http://')
+  const link = !ishttps ? 'https://' + props.link : props.link
+
   return (
 
-    <a href={props.link} target='_blank' rel='noreferrer'>
+    <a href={link} target='_blank' rel='noreferrer'>
       <div className='flex w-full h-32 rounded-2xl'>
 
         <div className='flex flex-col justify-around items-center h-auto w-full rounded-l-2xl text-gray-50 bg-black bg-opacity-20'>
@@ -16,7 +19,7 @@ function LinkCard (props) {
 
           <div />
           <div className='px-5 flex w-full justify-between '>
-            <p className='text-[0.6rem] text-zinc-400'>{link}</p>
+            <p className='text-[0.6rem] text-zinc-400'>{textLink}</p>
             <p className='text-[0.6rem]'>{props.date}</p>
           </div>
         </div>

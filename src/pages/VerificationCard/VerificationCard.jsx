@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import useLogin from '../../components/UserMenu/UserMenu'
+import useLogin from '../../hooks/useLogin'
 import Card from '../../components/Card/Card'
 
 function VerificationCard () {
@@ -7,6 +7,7 @@ function VerificationCard () {
   const { isLogin, currentUser } = useLogin()
 
   console.log('user', currentUser)
+  console.log('verificado', isLogin)
 
   const handleClick = () => {
     navigate('/')
@@ -15,9 +16,9 @@ function VerificationCard () {
   return (
     <Card>
       <h2 className='text-xl'>Verifique su correo electronico</h2>
-      <p className='my-10'>
+      <div className='my-10'>
         Te enviamos un correo al <div className='text-indigo-400 font-bold'>{currentUser.email}</div>
-      </p>
+      </div>
       <button className='w-32 mx-auto' onClick={handleClick}>Ir al home {isLogin}</button>
     </Card>
   )

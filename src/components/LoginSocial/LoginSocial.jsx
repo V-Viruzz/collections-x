@@ -2,16 +2,19 @@ import { GoogleAuthProvider, GithubAuthProvider, signInWithPopup } from 'firebas
 import { auth } from '../../service/firebase'
 import { useNavigate } from 'react-router-dom'
 import css from './LoginSocial.module.css'
+import registerUser from '../../service/registerUser'
 import googleLogo from '../../assets/icons8-google.svg'
 import githubLogo from '../../assets/icons8-github.svg'
 
 function LoginSocial () {
   const navigate = useNavigate()
+
   const handleClickGoogle = async () => {
     const provider = new GoogleAuthProvider()
     try {
       const credentials = await signInWithPopup(auth, provider)
       console.log('login google', credentials)
+      registerUser(credentials)
       navigate('/')
     } catch (err) {
       console.log(err)
@@ -21,6 +24,7 @@ function LoginSocial () {
     const provider = new GithubAuthProvider()
     try {
       const credentials = await signInWithPopup(auth, provider)
+      registerUser(credentials)
       console.log('login google', credentials)
     } catch (err) {
       console.log(err)

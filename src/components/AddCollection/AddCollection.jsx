@@ -1,10 +1,10 @@
-import { useState, useRef } from 'react'
-import useCollection from '../../hooks/useCollection'
+import { useState, useRef, useContext } from 'react'
+import { CollectionContext } from '../../context/collection'
 import todayDate from '../../utils/todayDate'
 import md5 from 'md5'
 
-function AddCollection ({ currentPath, entryPath }) {
-  const { addItem, setReload, reload } = useCollection()
+function AddCollection ({ currentPath, entryPath, addItem }) {
+  const { setReload, reload } = useContext(CollectionContext)
   const [inputHidden, setInputHidden] = useState(true)
   const [selectType, setSelectType] = useState(null)
   const [error, setError] = useState(false)
@@ -35,7 +35,7 @@ function AddCollection ({ currentPath, entryPath }) {
       setError(true)
       return
     }
-    console.log(entryPath)
+
     addItem({
       name,
       link,
@@ -47,6 +47,8 @@ function AddCollection ({ currentPath, entryPath }) {
       path: entryPath
 
     })
+
+    console.log('add collection')
     setInputHidden(true)
     setError(false)
     setReload(!reload)
