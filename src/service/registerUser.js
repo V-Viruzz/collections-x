@@ -23,7 +23,7 @@ async function registerUser (user) {
     body: JSON.stringify(data)
   }
 
-  fetch('https://collection-hh70f7hpd-viruzzz0.vercel.app/register', options)
+  fetch('https://collection-api.vercel.app/register', options)
     .then(response => response.json())
     .then(response => console.log(response))
     .catch(err => console.error(err))
