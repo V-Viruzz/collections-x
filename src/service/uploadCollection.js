@@ -1,4 +1,5 @@
 import { getAuth } from 'firebase/auth'
+const API_URL = import.meta.env.VITE_API_URL || process.env.VITE_API_URL
 
 async function uploadCollection (data) {
   const auth = getAuth()
@@ -15,7 +16,7 @@ async function uploadCollection (data) {
     body: JSON.stringify(data)
   }
 
-  fetch('https://collection-api.vercel.app/saveCollections', options)
+  fetch(`${API_URL}/saveCollections`, options)
     .then(response => response.json())
     .then(response => console.log(response))
     .catch(err => console.error(err))

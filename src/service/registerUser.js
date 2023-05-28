@@ -1,3 +1,5 @@
+const API_URL = import.meta.env.VITE_API_URL || process.env.VITE_API_URL
+
 async function registerUser (user) {
   const data = {
     user: 'nickname',
@@ -13,7 +15,7 @@ async function registerUser (user) {
     auth: user.user,
     uid: user.user.uid
   }
-  console.log(data)
+  console.log(API_URL)
 
   const options = {
     method: 'POST',
@@ -23,7 +25,7 @@ async function registerUser (user) {
     body: JSON.stringify(data)
   }
 
-  fetch('https://collection-api.vercel.app/register', options)
+  fetch(`${API_URL}/register`, options)
     .then(response => response.json())
     .then(response => console.log(response))
     .catch(err => console.error(err))

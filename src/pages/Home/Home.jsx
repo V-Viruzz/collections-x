@@ -1,5 +1,4 @@
 import UserMenu from '../../components/UserMenu/UserMenu'
-import { CollectionProvider } from '../../context/collection'
 import { Link, Outlet } from 'react-router-dom'
 import useLogin from '../../hooks/useLogin'
 
@@ -31,9 +30,7 @@ function Home () {
       {/* Contenido de la página */}
       <main className='flex items-center justify-center'>
         {isLogin
-          ? <CollectionProvider>
-            <Outlet />
-          </CollectionProvider>
+          ? <Outlet />
           : <Link to='/collections'>Collections</Link>}
 
       </main>
