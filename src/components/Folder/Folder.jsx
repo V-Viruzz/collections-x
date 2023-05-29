@@ -16,7 +16,7 @@ function Folder (props) {
     const pathFolder = url.splice(index + 1).join('/')
 
     return (
-      <Link to={pathFolder}>
+      <Link to={pathFolder} className='text-inherit'>
         {props.children}
       </Link>
     )
@@ -27,7 +27,7 @@ function Folder (props) {
     <DirLink {...props}>
       <div className='flex w-full h-32 rounded-2xl' onClick={handleClick}>
 
-        <div className='flex flex-col justify-around items-center h-auto w-full rounded-l-2xl text-gray-50 bg-black bg-opacity-20'>
+        <div className='flex flex-col justify-around items-center h-auto w-full rounded-l-2xl bg-black bg-opacity-20'>
           <div />
           <div>
             <h2 className='text-center text-xl '>{props.name}</h2>

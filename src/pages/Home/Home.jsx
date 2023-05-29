@@ -1,10 +1,6 @@
-import UserMenu from '../../components/UserMenu/UserMenu'
 import { Link } from 'react-router-dom'
-// import useLogin from '../../hooks/useLogin'
 
 function Home () {
-  // const { isLogin } = useLogin()
-
   return (
     <div className='grid grid-cols-1  justify-between min-h-screen w-screen'>
       {/* Header */}
@@ -16,14 +12,14 @@ function Home () {
               src='https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg'
               alt='Workflow'
             />
-            <h2 className='text-sm font-bold'>Collections X</h2>
+            <h2 className='text-sm text-inherit font-bold'>Collections X</h2>
           </div>
           <div className='block'>
             <div className='flex items-center justify-end'>
               <div className='md:block'>
                 <Link
                   to='/register'
-                  className='text-white text-sm'
+                  className='text-sm text-inherit'
                 >Log in
                 </Link>
               </div>
@@ -39,10 +35,10 @@ function Home () {
           <h1 className='text-2xl font-bold text-center w-60'>Colecciona todos tus links</h1>
           <div className='flex justify-center'>
             <Link
-              className='w-40 h-14 bg-blue-700 rounded-lg flex items-center justify-center gap-2'
+              className='w-40 h-14 bg-blue-700 rounded-lg flex items-center justify-center gap-2 transition duration-150 ease-in-out shadow-lg text-white hover:bg-blue-600 hover:text-white '
               to='/collections'
             >
-              <span className='font-bold text-white text-sm'>Get started</span>
+              <span className='font-bold text-sm'>Get started</span>
             </Link>
           </div>
         </div>
