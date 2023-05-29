@@ -58,7 +58,7 @@ function useCollection () {
         console.log('res :>> ', res)
         dispatch({ type: 'SET_DATA', value: res.user })
       })
-  }, [reload])
+  }, [])
 
   useEffect(() => {
     const fileSystem = window.localStorage.getItem('fileSystem')

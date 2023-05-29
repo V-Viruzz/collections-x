@@ -7,7 +7,6 @@ async function gettingCollections () {
 
   const options = {
     method: 'POST',
-
     body: user.uid
   }
   try {

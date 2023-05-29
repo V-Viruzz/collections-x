@@ -15,7 +15,6 @@ async function registerUser (user) {
     auth: user.user,
     uid: user.user.uid
   }
-  console.log(API_URL)
 
   const options = {
     method: 'POST',
