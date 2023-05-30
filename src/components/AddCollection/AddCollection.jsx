@@ -35,11 +35,11 @@ function AddCollection ({ currentView, currentPath, entryPath, addItem }) {
       return
     }
 
-    // const fileSystem = window.localStorage.getItem('fileSystem')
-    // const tmp = fileSystem ? JSON.parse(fileSystem).collections : []
-    // const existingName = tmp.some(c => c.name === name)
+    const fileSystem = window.localStorage.getItem('fileSystem')
+    const tmp = fileSystem ? JSON.parse(fileSystem).collections : []
+    const existingName = tmp.some(c => c.name === name)
 
-    const existingName = currentView.some(c => c.name === name)
+    // const existingName = currentView.some(c => c.name === name)
 
     if (existingName) {
       console.log('name exists')
