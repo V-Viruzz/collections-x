@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import todayDate from '../../utils/todayDate'
 import md5 from 'md5'
 
-function AddCollection ({ currentPath, entryPath, addItem }) {
+function AddCollection ({ currentView, currentPath, entryPath, addItem }) {
   const { setReload } = useContext(CollectionContext)
   const [inputHidden, setInputHidden] = useState(true)
   const [selectType, setSelectType] = useState(null)
@@ -22,15 +22,20 @@ function AddCollection ({ currentPath, entryPath, addItem }) {
       setError(true)
       return
     }
+
     if (!name) {
       console.log('name is not specified')
       setError(true)
       return
     }
 
-    const fileSystem = window.localStorage.getItem('fileSystem')
-    const tmp = fileSystem ? JSON.parse(fileSystem).collections : []
-    const existingName = tmp.some(c => c.name === name)
+    if (!link && selectType === 'link') {
+      console.log('link is not specified')
+      setError(true)
+      return
+    }
+
+    const existingName = currentView.some(c => c.name === name)
 
     if (existingName) {
       console.log('name exists')

@@ -58,11 +58,7 @@ function useCollection () {
       .then((res) => {
         console.log('gettingCollections :', res)
         dispatch({ type: 'SET_DATA', value: res.user })
-
         const collections = res.user.collections
-
-        console.log('currentPath :>> ', currentPath)
-        console.log('entryPath :>> ', entryPath)
 
         setCurrentView(collections || null)
         setListId(() => {

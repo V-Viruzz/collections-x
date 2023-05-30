@@ -4,7 +4,7 @@ import ListCollections from '../../components/ListCollections/ListCollections'
 import HeaderCollection from '../../components/HeaderCollection/HeaderCollection'
 
 function Collections () {
-  const { currentView, listId, setCurrentView, currentPath, entryPath, addItem } = useCollection()
+  const { currentView, setCurrentView, currentPath, entryPath, addItem, listId } = useCollection()
 
   return (
     <div className='flex flex-col min-h-screen w-screen'>
@@ -15,6 +15,7 @@ function Collections () {
         <div className='grid gap-5 w-[22rem] mt-6'>
 
           <AddCollection
+            currentView={currentView}
             currentPath={currentPath}
             entryPath={entryPath}
             addItem={addItem}
