@@ -2,7 +2,6 @@ import { useCallback, useContext } from 'react'
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd'
 import RenderCollection from '../RenderCollection/RenderCollection'
 import uploadCollection from '../../service/uploadCollection'
-
 import { CollectionContext } from '../../context/collection'
 
 function ListCollections ({ currentView, listId, setCurrentView, entryPath }) {

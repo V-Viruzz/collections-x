@@ -1,6 +1,8 @@
+import { useContext } from 'react'
 import { GoogleAuthProvider, GithubAuthProvider, signInWithPopup } from 'firebase/auth'
 import { auth } from '../../service/firebase'
 import { useNavigate } from 'react-router-dom'
+import { CollectionContext } from '../../context/collection'
 
 import css from './LoginSocial.module.css'
 import registerUser from '../../service/registerUser'
@@ -8,6 +10,7 @@ import googleLogo from '../../assets/icons8-google.svg'
 import githubLogo from '../../assets/icons8-github.svg'
 
 function LoginSocial () {
+  const { setReload } = useContext(CollectionContext)
   const navigate = useNavigate()
 
   const handleClickGoogle = async () => {
@@ -15,9 +18,10 @@ function LoginSocial () {
     try {
       const credentials = await signInWithPopup(auth, provider)
       console.log('login google', credentials)
-      registerUser(credentials)
 
-      navigate('/')
+      await registerUser(credentials)
+      navigate('/collections')
+      setReload(prev => !prev)
     } catch (err) {
       console.log(err)
     }
