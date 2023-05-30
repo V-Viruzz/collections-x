@@ -52,32 +52,31 @@ function useCollection () {
     })
   }
 
+  // Actualiza estados con la respuesta de la base de datos
   useEffect(() => {
     gettingCollections()
       .then((res) => {
-        console.log('res :>> ', res)
+        console.log('gettingCollections :', res)
         dispatch({ type: 'SET_DATA', value: res.user })
+
+        const collections = res.user.collections
+
+        console.log('currentPath :>> ', currentPath)
+        console.log('entryPath :>> ', entryPath)
+
+        setCurrentView(collections || null)
+        setListId(() => {
+          if (!collections[0]) return
+
+          return currentPath === 'collections'
+            ? collections[0].children
+            : collections.find(c => c.path === entryPath).children
+        })
       })
   }, [reload])
 
   useEffect(() => {
-    const fileSystem = window.localStorage.getItem('fileSystem')
-    const tmp = fileSystem ? JSON.parse(fileSystem).collections : []
-
-    setCurrentView(tmp || null)
-
-    setListId(() => {
-      if (!tmp[0]) {
-        return
-      }
-
-      return currentPath === 'collections'
-        ? tmp[0].children
-        : tmp.find(c => c.path === entryPath).children
-    })
-
     const handleBackButton = () => {
-      console.log("El usuario ha presionado el botón 'atrás'")
       setReload(!reload)
     }
 

@@ -4,7 +4,7 @@ import todayDate from '../../utils/todayDate'
 import md5 from 'md5'
 
 function AddCollection ({ currentPath, entryPath, addItem }) {
-  const { setReload, reload } = useContext(CollectionContext)
+  const { setReload } = useContext(CollectionContext)
   const [inputHidden, setInputHidden] = useState(true)
   const [selectType, setSelectType] = useState(null)
   const [error, setError] = useState(false)
@@ -51,13 +51,12 @@ function AddCollection ({ currentPath, entryPath, addItem }) {
     console.log('add collection')
     setInputHidden(true)
     setError(false)
-    setReload(!reload)
+    setReload(prev => !prev)
   }
 
   return (
     <>
       <div className='flex justify-between gap-3'>
-
         <button onClick={() => setInputHidden(false)}>
           <svg width='24px' height='24px' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
             <g id='SVGRepo_bgCarrier' strokeWidth='0' />
@@ -69,8 +68,6 @@ function AddCollection ({ currentPath, entryPath, addItem }) {
             </g>
           </svg>
         </button>
-
-        {/* <button className='w-36' onClick={() => console.log(state)}>view</button> */}
       </div>
 
       <div className={`fixed z-50 inset-0 items-center justify-center ${inputHidden ? 'hidden' : 'flex'}`}>
@@ -107,18 +104,22 @@ function AddCollection ({ currentPath, entryPath, addItem }) {
             className={`${error ? 'border-2 border-red-700' : ''} block appearance-none w-60 rounded-lg bg-bluegray-900 bg-opacity-50 px-4 py-3 text-center text-base placeholder-bluegray-400 shadow-sm transition duration-300 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-500 focus:ring-opacity-50`}
           />
           {
-            selectType === 'link'
-              ? <input
-                  type='text'
-                  placeholder='link'
-                  id='link'
-                  ref={linkRef}
-                  className={`${error ? 'border-2 border-red-700' : ''} block appearance-none w-60 rounded-lg bg-bluegray-900 bg-opacity-50 px-4 py-3 text-center text-base placeholder-bluegray-400 shadow-sm transition duration-300 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-500 focus:ring-opacity-50`}
-                />
-              : null
+          selectType === 'link'
+            ? <input
+                type='text'
+                placeholder='link'
+                id='link'
+                ref={linkRef}
+                className={`${error ? 'border-2 border-red-700' : ''} block appearance-none w-60 rounded-lg bg-bluegray-900 bg-opacity-50 px-4 py-3 text-center text-base placeholder-bluegray-400 shadow-sm transition duration-300 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-500 focus:ring-opacity-50`}
+              />
+            : null
           }
 
-          <button className=' bg-slate-800 w-60 h-11 rounded-lg' onClick={handleClickForm}>Crear</button>
+          <button
+            onClick={handleClickForm}
+            className=' bg-slate-800 w-60 h-11 rounded-lg'
+          >Crear
+          </button>
 
         </div>
       </div>
