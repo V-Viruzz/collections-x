@@ -16,7 +16,10 @@ function Folder (props) {
     const pathFolder = url.splice(index + 1).join('/')
 
     return (
-      <Link to={pathFolder} className='text-inherit'>
+      <Link
+        to={pathFolder}
+        className='text-inherit hover:text-inherit'
+      >
         {props.children}
       </Link>
     )
