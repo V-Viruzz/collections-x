@@ -2,7 +2,7 @@ import { useContext } from 'react'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { auth } from '../../service/firebase'
 import { ErrorContext } from '../../context/error'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import Input from '../Input/Input'
 import css from './Form.module.css'
 
@@ -33,7 +33,7 @@ function FormLogin () {
   return (
     <div>
       <form className={`${css.formContainer}`} onSubmit={handleSubmit}>
-        <p className='text-sm'>¿Aun no te <a>registraste</a>?</p>
+        <p className='text-sm'>¿Aun no te <Link to='/register'>registraste</Link>?</p>
 
         <Input type='text' placeholder='Email' id='signup-email' />
         <Input type='password' placeholder='Password' id='signup-password' />

@@ -1,5 +1,6 @@
 import { useState, useRef, useContext } from 'react'
 import { CollectionContext } from '../../context/collection'
+import { useNavigate } from 'react-router-dom'
 import todayDate from '../../utils/todayDate'
 import md5 from 'md5'
 
@@ -8,6 +9,7 @@ function AddCollection ({ currentPath, entryPath, addItem }) {
   const [inputHidden, setInputHidden] = useState(true)
   const [selectType, setSelectType] = useState(null)
   const [error, setError] = useState(false)
+  const navigate = useNavigate()
   const nameRef = useRef(null)
   const linkRef = useRef(null)
 
@@ -54,8 +56,44 @@ function AddCollection ({ currentPath, entryPath, addItem }) {
     setReload(prev => !prev)
   }
 
+  const handleGoBack = () => {
+    const backPath = entryPath.split('/')
+    backPath.pop()
+    navigate(`/${backPath.join('/')}`)
+    setReload(prev => !prev)
+  }
+
   return (
-    <>
+    <div className='flex justify-between'>
+
+      {/* Collection bar */}
+      <div className='flex gap-2 items-center'>
+        {
+          currentPath !== 'collections' &&
+            <button onClick={handleGoBack}>
+              <svg width='18px' height='18px' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg' fill='#ffffff'>
+                <g id='SVGRepo_bgCarrier' strokeWidth='0' /><g id='SVGRepo_tracerCarrier' strokeLinecap='round' strokeLinejoin='round' />
+                <g id='SVGRepo_iconCarrier'>
+                  <title />
+                  <g id='Complete'>
+                    <g id='F-Chevron'>
+                      <polyline fill='none' id='Left' points='15.5 5 8.5 12 15.5 19' stroke='#ffffff' strokeLinecap='round' strokeLinejoin='round' strokeWidth='2' />
+                    </g>
+                  </g>
+                </g>
+              </svg>
+            </button>
+        }
+
+        <h2 className='text-base font-bold'>{currentPath}</h2>
+        <svg className='fill-current' width='24px' height='24px' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+          <g id='SVGRepo_bgCarrier' strokeWidth='0' /><g id='SVGRepo_tracerCarrier' strokeLinecap='round' strokeLinejoin='round' />
+          <g id='SVGRepo_iconCarrier'>
+            <path d='M2.165 19.551c.186.28.499.449.835.449h15c.4 0 .762-.238.919-.606l3-7A.998.998 0 0 0 21 11h-1V8c0-1.103-.897-2-2-2h-6.655L8.789 4H4c-1.103 0-2 .897-2 2v13h.007a1 1 0 0 0 .158.551zM18 8v3H6c-.4 0-.762.238-.919.606L4 14.129V8h14z' />
+          </g>
+        </svg>
+      </div>
+
       <div className='flex justify-between gap-3'>
         <button onClick={() => setInputHidden(false)}>
           <svg width='24px' height='24px' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
@@ -70,6 +108,7 @@ function AddCollection ({ currentPath, entryPath, addItem }) {
         </button>
       </div>
 
+      {/* Menu to add collection */}
       <div className={`fixed z-50 inset-0 items-center justify-center ${inputHidden ? 'hidden' : 'flex'}`}>
         <div className='container mx-auto bg-zinc-900 w-80 py-10 rounded-2xl flex justify-center items-center flex-col gap-4 relative'>
           <button
@@ -123,7 +162,7 @@ function AddCollection ({ currentPath, entryPath, addItem }) {
 
         </div>
       </div>
-    </>
+    </div>
   )
 }
 

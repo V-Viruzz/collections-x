@@ -2,7 +2,7 @@ import { useContext } from 'react'
 import { createUserWithEmailAndPassword, sendEmailVerification } from 'firebase/auth'
 import { auth } from '../../service/firebase'
 import { ErrorContext } from '../../context/error'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import Input from '../Input/Input'
 import css from './Form.module.css'
 import registerUser from '../../service/registerUser'
@@ -42,7 +42,7 @@ function FormRegister () {
   return (
     <div>
       <form className={`${css.formContainer}`} onSubmit={handleSubmit}>
-        <p className='text-sm'>¿Ya tienes una cuenta? <a>Iniciar sesión</a> </p>
+        <p className='text-sm'>¿Ya tienes una cuenta? <Link to='/login'>Iniciar sesión</Link> </p>
 
         <Input type='text' placeholder='Email' id='signup-email' />
         <Input type='password' placeholder='Password' id='signup-password' />

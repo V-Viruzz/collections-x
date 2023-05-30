@@ -1,8 +1,8 @@
+import { Routes, Route } from 'react-router-dom'
 import SignUp from './pages/SignUp/SignUp'
 import SignIn from './pages/SignIn/SignIn'
-import { Routes, Route } from 'react-router-dom'
 import NotificationError from './components/NotificationError/NotificationError'
-import Collections from './components/Collections/Collections'
+import Collections from './pages/Collections/Collections'
 import Home from './pages/Home/Home'
 import Register from './pages/Register/Register'
 import VerificationCard from './pages/VerificationCard/VerificationCard'
@@ -23,9 +23,7 @@ function App () {
     <>
       <Routes>
         <Route path='/' element={<Home />} />
-        <Route
-          path='/collections' element={<IsCollection />}
-        />
+        <Route path='/collections' element={<IsCollection />} />
         <Route path='/collections/*' element={<IsCollection />} />
         <Route path='/register' element={<SignUp />} />
         <Route path='/register-completado' element={<Register />} />
@@ -38,5 +36,3 @@ function App () {
 }
 
 export default App
-
-// Agregar un collecion de paginas en el main

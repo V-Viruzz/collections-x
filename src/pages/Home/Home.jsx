@@ -18,7 +18,7 @@ function Home () {
             <div className='flex items-center justify-end'>
               <div className='md:block'>
                 <Link
-                  to='/register'
+                  to='/login'
                   className='text-sm text-inherit'
                 >Log in
                 </Link>
