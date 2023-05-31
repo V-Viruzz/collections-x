@@ -1,7 +1,7 @@
 import Menu from '../../components/Menu/Menu'
 import { getAuth } from 'firebase/auth'
 
-function HeaderCollection () {
+function HeaderCollection ({ setData }) {
   const auth = getAuth()
   const user = auth.currentUser
 
@@ -22,7 +22,7 @@ function HeaderCollection () {
             alt='Workflow'
           />
         </div>
-        <Menu />
+        <Menu setData={setData} />
       </nav>
     </header>
   )

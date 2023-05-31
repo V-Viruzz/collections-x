@@ -1,6 +1,9 @@
 import { Link } from 'react-router-dom'
+import useLogin from '../../hooks/useLogin'
 
 function Home () {
+  const { isLogin } = useLogin()
+
   return (
     <div className='grid grid-cols-1  justify-between min-h-screen w-screen'>
       {/* Header */}
@@ -36,7 +39,7 @@ function Home () {
           <div className='flex justify-center'>
             <Link
               className='w-40 h-14 bg-blue-700 rounded-lg flex items-center justify-center gap-2 transition duration-150 ease-in-out shadow-lg text-white hover:bg-blue-600 hover:text-white '
-              to='/collections'
+              to={`${isLogin ? '/collections' : '/login'}`}
             >
               <span className='font-bold text-sm'>Get started</span>
             </Link>

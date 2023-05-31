@@ -4,8 +4,8 @@ import RenderCollection from '../RenderCollection/RenderCollection'
 import uploadCollection from '../../service/uploadCollection'
 import { CollectionContext } from '../../context/collection'
 
-function ListCollections ({ currentView, listId, setCurrentView, entryPath }) {
-  const { setReload } = useContext(CollectionContext)
+function ListCollections ({ entryPath }) {
+  const { currentView, setCurrentView, listId, setReload } = useContext(CollectionContext)
 
   const onDragEnd = useCallback((result) => {
     const { source, destination } = result

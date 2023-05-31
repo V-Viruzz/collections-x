@@ -5,7 +5,7 @@ import { signOut } from 'firebase/auth'
 import { useNavigate } from 'react-router-dom'
 import uploadCollection from '../../service/uploadCollection'
 
-function Menu () {
+function Menu ({ setData }) {
   const [showMenu, setShowMenu] = useState(false)
   const { setReload } = useContext(CollectionContext)
   const navigate = useNavigate()
@@ -33,8 +33,10 @@ function Menu () {
       children: []
     }]
     window.localStorage.setItem('fileSystem', JSON.stringify(fileSystem))
-    uploadCollection(fileSystem)
     console.log('deleteAll')
+
+    uploadCollection(fileSystem)
+    setData(fileSystem)
     setReload(prev => !prev)
   }
 

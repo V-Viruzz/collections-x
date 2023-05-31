@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import todayDate from '../../utils/todayDate'
 import md5 from 'md5'
 
-function AddCollection ({ currentView, currentPath, entryPath, addItem }) {
+function AddCollection ({ addItem, entryPath, currentPath }) {
   const { setReload } = useContext(CollectionContext)
   const [inputHidden, setInputHidden] = useState(true)
   const [selectType, setSelectType] = useState(null)

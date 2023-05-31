@@ -5,14 +5,16 @@ export const CollectionContext = createContext()
 export function CollectionProvider ({ children }) {
   const [currentView, setCurrentView] = useState([])
   const [reload, setReload] = useState(false)
+  const [listId, setListId] = useState()
 
   return (
     <CollectionContext.Provider value={{
       currentView,
       setCurrentView,
       reload,
-      setReload
-
+      setReload,
+      listId,
+      setListId
     }}
     >
       {children}

@@ -1,4 +1,4 @@
-import { useContext, useReducer, useEffect, useState } from 'react'
+import { useContext, useReducer, useEffect } from 'react'
 import { CollectionContext } from '../context/collection'
 import uploadCollection from '../service/uploadCollection'
 import gettingCollections from '../service/gettingCollections'
@@ -16,7 +16,7 @@ function reducer (state, action) {
 
   const namePath = newEntry.name.replace(' ', '-')
 
-  if (action.type === 'add_folder') {
+  if (action.type === 'ADD_ITEM') {
     newEntry.path = `${newEntry.path}/${namePath}`
     if (newEntry.type === 'folder') {
       newEntry.children = []
@@ -36,9 +36,13 @@ function reducer (state, action) {
 }
 
 function useCollection () {
-  const { setCurrentView, currentView, setReload, reload } = useContext(CollectionContext)
+  const {
+    setCurrentView, currentView,
+    setReload, reload,
+    listId, setListId
+  } = useContext(CollectionContext)
+
   const [state, dispatch] = useReducer(reducer, initialState)
-  const [listId, setListId] = useState()
 
   const currentPath = window.location.href.split('/').pop()
   const pathFull = window.location.href.split('/')
@@ -47,28 +51,46 @@ function useCollection () {
 
   const addItem = (data) => {
     dispatch({
-      type: 'add_folder',
+      type: 'ADD_ITEM',
+      value: data
+    })
+  }
+  const setData = (data) => {
+    dispatch({
+      type: 'SET_DATA',
       value: data
     })
   }
 
+  const updateCollectionStates = (state) => {
+    setCurrentView(state || null)
+    setListId(() => {
+      if (!state[0]) return
+
+      return currentPath === 'collections'
+        ? state[0].children
+        : state.find(c => c.path === entryPath).children
+    })
+  }
+
   // Actualiza estados con la respuesta de la base de datos
+
   useEffect(() => {
     gettingCollections()
       .then((res) => {
         console.log('gettingCollections :', res)
-        dispatch({ type: 'SET_DATA', value: res.user })
         const collections = res.user.collections
 
-        setCurrentView(collections || null)
-        setListId(() => {
-          if (!collections[0]) return
-
-          return currentPath === 'collections'
-            ? collections[0].children
-            : collections.find(c => c.path === entryPath).children
-        })
+        setData(res.user)
+        updateCollectionStates(collections)
       })
+  }, [])
+
+  useEffect(() => {
+    const fileSystem = window.localStorage.getItem('fileSystem')
+    const collections = fileSystem ? JSON.parse(fileSystem).collections : []
+
+    updateCollectionStates(collections)
   }, [reload])
 
   useEffect(() => {
@@ -84,6 +106,7 @@ function useCollection () {
 
   return {
     state,
+    setData,
     addItem,
     currentView,
     setCurrentView,
