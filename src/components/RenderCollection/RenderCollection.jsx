@@ -1,12 +1,12 @@
 import FolderCollection from '../Folder/Folder'
-import LinkCollection from '../LinkCard/LinkCard'
+import LinkCard from '../LinkCard/LinkCard'
 
 function RenderCollection ({ attrs, entryPath, index }) {
   const showCollection = () => {
     if (attrs.type === 'folder') {
       return <FolderCollection key={attrs.id} {...attrs} entryPath={entryPath} />
     } else if (attrs.type === 'link') {
-      return <LinkCollection key={attrs.id} {...attrs} />
+      return <LinkCard key={attrs.id} {...attrs} />
     }
   }
   return (

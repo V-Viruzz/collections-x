@@ -19,7 +19,8 @@ function LoginSocial () {
       const credentials = await signInWithPopup(auth, provider)
       console.log('login google', credentials)
 
-      await registerUser(credentials)
+      const res = await registerUser(credentials)
+      console.log('register google', res)
       navigate('/collections')
       setReload(prev => !prev)
     } catch (err) {

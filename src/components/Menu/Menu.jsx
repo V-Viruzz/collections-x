@@ -62,7 +62,7 @@ function Menu ({ setData }) {
         className={`${showMenu ? '' : 'hidden'} 
          right-0 top-14 h-auto w-40 absolute bg-zinc-900
          border-solid border border-zinc-700 rounded-lg
-         shadow-xl p-3 font-sans text-sm font-normal focus:outline-none
+         shadow-xl p-3 font-sans text-sm font-normal focus:outline-none z-10
          `}
       >
         <li

@@ -24,10 +24,14 @@ async function registerUser (user) {
     body: JSON.stringify(data)
   }
 
-  fetch(`${API_URL}/register`, options)
-    .then(response => response.json())
-    .then(response => console.log(response))
-    .catch(err => console.error(err))
+  try {
+    const res = await fetch(`${API_URL}/register`, options)
+    const data = await res.json()
+
+    return data
+  } catch (error) {
+    console.error(error)
+  }
 }
 
 export default registerUser
