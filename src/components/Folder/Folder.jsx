@@ -2,13 +2,14 @@ import { useContext, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { CollectionContext } from '../../context/collection'
 
-function Folder (props) {
-  const { reload, setReload } = useContext(CollectionContext)
+function Folder ({ name, date, deleteItem, parentID, id, path }) {
+  const { setReload } = useContext(CollectionContext)
   const [showButtonMenu, setShowButtonMenu] = useState(false)
   const [showMenu, setShowMenu] = useState(false)
   const [isOver, setIsOver] = useState(false)
 
   const deleteItemClick = () => {
+    deleteItem({ id, parentID })
     console.log('delete item')
   }
   const editeItemClick = () => {
@@ -16,7 +17,7 @@ function Folder (props) {
   }
 
   const DirLink = (props) => {
-    const url = props.path.split('/')
+    const url = path.split('/')
     const index = url.indexOf('collections')
     const pathFolder = url.splice(index + 1).join('/')
 
@@ -43,21 +44,21 @@ function Folder (props) {
 
   return (
 
-    <DirLink {...props}>
+    <DirLink>
       <div
         onMouseOver={() => setShowButtonMenu(true)}
         onMouseOut={() => setShowButtonMenu(false)}
-        onClick={() => setReload(!reload)}
+        onClick={() => setReload(prev => !prev)}
         className='flex w-full h-32 rounded-2xl'
       >
 
         <div className='flex flex-col justify-around items-center h-auto w-full rounded-l-2xl bg-black bg-opacity-20'>
           <div />
           <div>
-            <h2 className='text-center text-xl '>{props.name}</h2>
+            <h2 className='text-center text-xl '>{name}</h2>
           </div>
           <div className='px-3 flex w-full justify-end '>
-            <p className='text-[0.6rem]'>{props.date}</p>
+            <p className='text-[0.6rem]'>{date}</p>
           </div>
         </div>
 

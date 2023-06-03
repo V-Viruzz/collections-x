@@ -12,11 +12,9 @@ function reducer (state, action) {
     return action.value
   }
 
-  const newEntry = { ...action.value }
-
-  const namePath = newEntry.name.replace(' ', '-')
-
   if (action.type === 'ADD_ITEM') {
+    const newEntry = { ...action.value }
+    const namePath = newEntry.name.replace(' ', '-')
     newEntry.path = `${newEntry.path}/${namePath}`
     if (newEntry.type === 'folder') {
       newEntry.children = []
@@ -33,13 +31,32 @@ function reducer (state, action) {
     uploadCollection(state)
     return { ...state }
   }
+
+  if (action.type === 'DELETE_ITEM') {
+    const { id, parentID } = action.value
+    const newState = { ...state }
+
+    // Encuentra la entrada en la colección
+    const index = state.collections.findIndex(item => item.id === id)
+    const indexParent = state.collections.findIndex(item => item.id === parentID)
+    const indexChildren = state.collections[indexParent].children.findIndex(item => item === id)
+
+    // Elimina la entrada de la colección
+    newState.collections.splice(index, 1)
+    newState.collections[indexParent].children.splice(indexChildren, 1)
+
+    // Actualiza el localStorage y vuelve a cargar la colección
+    window.localStorage.setItem('fileSystem', JSON.stringify(state))
+    uploadCollection(state)
+    return { ...state }
+  }
 }
 
 function useCollection () {
   const {
-    setCurrentView, currentView,
+    setCurrentView,
     setReload, reload,
-    listId, setListId
+    setListId
   } = useContext(CollectionContext)
 
   const [state, dispatch] = useReducer(reducer, initialState)
@@ -55,6 +72,14 @@ function useCollection () {
       value: data
     })
   }
+
+  const deleteItem = (data) => {
+    dispatch({
+      type: 'DELETE_ITEM',
+      value: data
+    })
+  }
+
   const setData = (data) => {
     dispatch({
       type: 'SET_DATA',
@@ -108,14 +133,9 @@ function useCollection () {
     state,
     setData,
     addItem,
-    currentView,
-    setCurrentView,
+    deleteItem,
     entryPath,
-    currentPath,
-    listId,
-    setListId,
-    setReload,
-    reload
+    currentPath
   }
 }
 

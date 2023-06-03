@@ -1,24 +1,28 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
+import { CollectionContext } from '../../context/collection'
 
-function LinkCard (props) {
+function LinkCard ({ name, link, date, deleteItem, parentID, id }) {
+  const { setReload } = useContext(CollectionContext)
   const [showButtonMenu, setShowButtonMenu] = useState(false)
   const [showMenu, setShowMenu] = useState(false)
   const [isOver, setIsOver] = useState(false)
 
   const deleteItemClick = () => {
+    deleteItem({ id, parentID })
     console.log('delete item')
+    setReload(prev => !prev)
   }
   const editeItemClick = () => {
     console.log('edite item')
   }
 
-  const textLink = props.link
+  const textLink = link
     .replace('https://', '')
     .replace('http://', '')
     .split('/')[0]
 
-  const ishttps = props.link.includes('https://' || 'http://')
-  const link = !ishttps ? 'https://' + props.link : props.link
+  const ishttps = link.includes('https://' || 'http://')
+  const newlink = !ishttps ? 'https://' + link : link
 
   const DirLink = (props) => {
     return (
@@ -31,13 +35,13 @@ function LinkCard (props) {
             {props.children}
             </div>
           : <a
-              href={link}
+              href={newlink}
               target='_blank'
               rel='noreferrer'
               className='text-inherit hover:text-inherit'
             >
             {props.children}
-          </a>
+            </a>
       }
       </>
     )
@@ -46,7 +50,6 @@ function LinkCard (props) {
   return (
 
     <DirLink
-      href={link}
       target='_blank'
       rel='noreferrer'
 
@@ -59,13 +62,13 @@ function LinkCard (props) {
 
         <div className='flex flex-col justify-around items-center h-auto w-full rounded-l-2xl text-gray-50 bg-black bg-opacity-20'>
           <div className='px-5 flex w-full justify-between '>
-            <h2 className='text-sm text-start'>{props.name}</h2>
+            <h2 className='text-sm text-start'>{name}</h2>
           </div>
 
           <div />
           <div className='px-5 flex w-full justify-between '>
             <p className='text-[0.6rem] text-zinc-400'>{textLink}</p>
-            <p className='text-[0.6rem]'>{props.date}</p>
+            <p className='text-[0.6rem]'>{date}</p>
           </div>
         </div>
 
@@ -82,7 +85,7 @@ function LinkCard (props) {
             onMouseOver={() => setIsOver(true)}
             onMouseOut={() => setIsOver(false)}
             onClick={() => setShowMenu(!showMenu)}
-            className={`${showButtonMenu ? '' : 'opacity-0'} absolute top-2 right-2`}
+            className={`${showButtonMenu ? '' : 'opacity-0'} absolute top-2 right-2 z-50`}
           >
             <svg width='18px' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg' transform='rotate(90)'>
               <g id='SVGRepo_bgCarrier' strokeWidth='0' />
@@ -127,3 +130,5 @@ function LinkCard (props) {
 
   )
 }
+
+export default LinkCard
