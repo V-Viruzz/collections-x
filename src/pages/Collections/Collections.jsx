@@ -4,7 +4,7 @@ import ListCollections from '../../components/ListCollections/ListCollections'
 import HeaderCollection from '../../components/HeaderCollection/HeaderCollection'
 
 function Collections () {
-  const { addItem, deleteItem, setData, entryPath, currentPath } = useCollection()
+  const { addItem, deleteItem, editItem, setData, entryPath, currentPath } = useCollection()
 
   return (
     <div className='flex flex-col min-h-screen w-screen'>
@@ -25,6 +25,7 @@ function Collections () {
           <ListCollections
             entryPath={entryPath}
             deleteItem={deleteItem}
+            editItem={editItem}
           />
 
         </div>

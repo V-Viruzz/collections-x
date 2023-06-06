@@ -20,6 +20,7 @@ function reducer (state, action) {
       newEntry.children = []
     }
     const id = md5(newEntry.path + newEntry.type)
+
     newEntry.id = id
     state.collections.push(newEntry)
 
@@ -50,6 +51,44 @@ function reducer (state, action) {
     uploadCollection(state)
     return { ...state }
   }
+
+  if (action.type === 'EDIT_NAME') {
+    const { id, newName, newLink } = action.value
+    const newState = { ...state }
+
+    // Encuentra la entrada en la colección
+    const index = state.collections.findIndex(item => item.id === id)
+
+    // Elimina la entrada de la colección
+    newState.collections[index].name = newName
+    newState.collections[index].link = newLink
+
+    const arrayPath = newState.collections[index].path.split('/')
+    arrayPath.splice((arrayPath.length - 1), 1, newName)
+    newState.collections[index].path = arrayPath.join('/')
+
+    console.log('object :>> ', newState.collections[index].path + newState.collections[index].type)
+
+    const parentID = md5(newState.collections[index].path + ' ' + newState.collections[index].type)
+    newState.collections[index].id = parentID
+
+    newState.collections[index].children.map(item => {
+      const children = newState.collections.find(c => c.id === item)
+      const tmpPath = children.path.split('/')
+      const indexPath = tmpPath.findIndex(item => item === children.parentPath)
+      tmpPath.splice(indexPath, 1, newName)
+
+      children.parentID = parentID
+      children.path = tmpPath.join('/')
+      children.parentPath = newName
+      return children
+    })
+
+    // Actualiza el localStorage y vuelve a cargar la colección
+    window.localStorage.setItem('fileSystem', JSON.stringify(newState))
+    uploadCollection(newState)
+    return { ...newState }
+  }
 }
 
 function useCollection () {
@@ -76,6 +115,13 @@ function useCollection () {
   const deleteItem = (data) => {
     dispatch({
       type: 'DELETE_ITEM',
+      value: data
+    })
+  }
+
+  const editItem = (data) => {
+    dispatch({
+      type: 'EDIT_NAME',
       value: data
     })
   }
@@ -134,6 +180,7 @@ function useCollection () {
     setData,
     addItem,
     deleteItem,
+    editItem,
     entryPath,
     currentPath
   }

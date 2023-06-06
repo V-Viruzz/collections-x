@@ -4,7 +4,7 @@ import RenderCollection from '../RenderCollection/RenderCollection'
 import uploadCollection from '../../service/uploadCollection'
 import { CollectionContext } from '../../context/collection'
 
-function ListCollections ({ entryPath, deleteItem }) {
+function ListCollections ({ entryPath, deleteItem, editItem }) {
   const { currentView, setCurrentView, listId, setReload } = useContext(CollectionContext)
 
   const onDragEnd = useCallback((result) => {
@@ -70,6 +70,7 @@ function ListCollections ({ entryPath, deleteItem }) {
                             index={index}
                             entryPath={entryPath}
                             deleteItem={deleteItem}
+                            editItem={editItem}
                           />
                         </li>
                       )}

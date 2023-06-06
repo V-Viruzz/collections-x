@@ -1,9 +1,11 @@
 import { useState, useContext } from 'react'
 import { CollectionContext } from '../../context/collection'
+import EditMenu from '../EditMenu/EditMenu'
 
-function LinkCard ({ name, link, date, deleteItem, parentID, id }) {
+function LinkCard ({ name, link, date, deleteItem, editItem, parentID, id, type }) {
   const { setReload } = useContext(CollectionContext)
   const [showButtonMenu, setShowButtonMenu] = useState(false)
+  const [inputHidden, setInputHidden] = useState(true)
   const [showMenu, setShowMenu] = useState(false)
   const [isOver, setIsOver] = useState(false)
 
@@ -12,9 +14,11 @@ function LinkCard ({ name, link, date, deleteItem, parentID, id }) {
     console.log('delete item')
     setReload(prev => !prev)
   }
-  const editeItemClick = () => {
-    console.log('edite item')
-  }
+  // const editeItemClick = () => {
+  //   console.log('edite item')
+  //   setInputHidden(false)
+  //   setShowMenu(false)
+  // }
 
   const textLink = link
     .replace('https://', '')
@@ -29,19 +33,21 @@ function LinkCard ({ name, link, date, deleteItem, parentID, id }) {
       <>
         {
         isOver
-          ? <div
-              className='text-inherit hover:text-inherit'
-            >
-            {props.children}
+          ? (
+            <div className='text-inherit hover:text-inherit'>
+              {props.children}
             </div>
-          : <a
+            )
+          : (
+            <a
               href={newlink}
               target='_blank'
               rel='noreferrer'
               className='text-inherit hover:text-inherit'
             >
-            {props.children}
+              {props.children}
             </a>
+            )
       }
       </>
     )
@@ -114,18 +120,29 @@ function LinkCard ({ name, link, date, deleteItem, parentID, id }) {
             >
               Eliminar
             </li>
-            <li
+            {/* <li
               role='menuitem'
               onClick={editeItemClick}
               className='block w-full cursor-pointer select-none rounded-md px-3 pt-[9px] pb-2 text-start leading-tight transition-all hover:bg-zinc-800 hover:bg-opacity-80 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900 '
             >
               Editar
-            </li>
+            </li> */}
 
           </ul>
         </div>
 
       </div>
+
+      <EditMenu
+        id={id}
+        name={name}
+        link={link}
+        type={type}
+        inputHidden={inputHidden}
+        setInputHidden={setInputHidden}
+        editItem={editItem}
+        setIsOver={setIsOver}
+      />
     </DirLink>
 
   )

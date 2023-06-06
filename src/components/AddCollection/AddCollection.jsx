@@ -47,13 +47,15 @@ function AddCollection ({ addItem, entryPath, currentPath }) {
       return
     }
 
+    const idpa = md5(entryPath + selectType)
+
     addItem({
       name,
       link,
       type: selectType,
       color: 'primary',
       date: todayDate(),
-      parentID: currentPath === 'collections' ? 'collections' : md5(entryPath + 'folder'),
+      parentID: currentPath === 'collections' ? 'collections' : idpa,
       parentPath: currentPath,
       path: entryPath
 

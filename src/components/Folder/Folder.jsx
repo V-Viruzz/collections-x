@@ -1,20 +1,25 @@
 import { useContext, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { CollectionContext } from '../../context/collection'
+import EditMenu from '../EditMenu/EditMenu'
 
-function Folder ({ name, date, deleteItem, parentID, id, path }) {
+function Folder ({ name, date, deleteItem, editItem, parentID, id, path, type }) {
   const { setReload } = useContext(CollectionContext)
   const [showButtonMenu, setShowButtonMenu] = useState(false)
+  const [inputHidden, setInputHidden] = useState(true)
   const [showMenu, setShowMenu] = useState(false)
   const [isOver, setIsOver] = useState(false)
 
   const deleteItemClick = () => {
     deleteItem({ id, parentID })
     console.log('delete item')
+    setReload(prev => !prev)
   }
-  const editeItemClick = () => {
-    console.log('edite item')
-  }
+  // const editeItemClick = () => {
+  //   console.log('edite item')
+  //   setInputHidden(false)
+  //   setShowMenu(false)
+  // }
 
   const DirLink = (props) => {
     const url = path.split('/')
@@ -25,18 +30,23 @@ function Folder ({ name, date, deleteItem, parentID, id, path }) {
       <>
         {
         isOver
-          ? <div
+          ? (
+            <div
               to={pathFolder}
               className='text-inherit hover:text-inherit'
             >
-            {props.children}
-          </div>
-          : <Link
+              {props.children}
+            </div>
+            )
+          : (
+            <Link
               to={pathFolder}
+              onClick={() => setReload(prev => !prev)}
               className='text-inherit hover:text-inherit'
             >
-            {props.children}
+              {props.children}
             </Link>
+            )
       }
       </>
     )
@@ -48,7 +58,6 @@ function Folder ({ name, date, deleteItem, parentID, id, path }) {
       <div
         onMouseOver={() => setShowButtonMenu(true)}
         onMouseOut={() => setShowButtonMenu(false)}
-        onClick={() => setReload(prev => !prev)}
         className='flex w-full h-32 rounded-2xl'
       >
 
@@ -104,16 +113,26 @@ function Folder ({ name, date, deleteItem, parentID, id, path }) {
             >
               Eliminar
             </li>
-            <li
+            {/* <li
               role='menuitem'
               onClick={editeItemClick}
               className='block w-full cursor-pointer select-none rounded-md px-3 pt-[9px] pb-2 text-start leading-tight transition-all hover:bg-zinc-800 hover:bg-opacity-80 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900 '
             >
               Editar
-            </li>
+            </li> */}
 
           </ul>
         </div>
+
+        <EditMenu
+          id={id}
+          name={name}
+          type={type}
+          inputHidden={inputHidden}
+          setInputHidden={setInputHidden}
+          editItem={editItem}
+          setIsOver={setIsOver}
+        />
 
       </div>
     </DirLink>

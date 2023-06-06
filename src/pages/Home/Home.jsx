@@ -35,7 +35,7 @@ function Home () {
       <main className='flex items-center justify-center h-full'>
 
         <div className='h-full flex flex-col gap-10'>
-          <h1 className='text-2xl font-bold text-center w-60'>Colecciona todos tus links</h1>
+          <h1 className='text-2xl font-bold text-center w-60'>Collect all your links</h1>
           <div className='flex justify-center'>
             <Link
               className='w-40 h-14 bg-blue-700 rounded-lg flex items-center justify-center gap-2 transition duration-150 ease-in-out shadow-lg text-white hover:bg-blue-600 hover:text-white '
