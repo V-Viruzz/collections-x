@@ -9,7 +9,8 @@ export default {
       width: {
         85: '22rem',
         94: '26rem',
-        128: '32rem'
+        128: '32rem',
+        p84: '84%'
       },
       gridTemplateRows: {
         layout: '12rem, 5rem, auto'
