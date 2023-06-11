@@ -14,7 +14,7 @@ function Collections () {
       />
 
       <main className='flex items-center justify-center'>
-        <div className='grid gap-5 w-[22rem] mt-6'>
+        <div className='grid gap-5 w-[22rem] my-6'>
 
           <AddCollection
             addItem={addItem}
