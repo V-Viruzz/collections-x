@@ -61,7 +61,10 @@ function Folder ({ name, date, deleteItem, editItem, parentID, id, path, type })
         className='flex w-full h-32 rounded-2xl'
       >
 
-        <div className='flex flex-col justify-around items-center h-auto w-full rounded-l-2xl bg-black bg-opacity-20'>
+        <div 
+          className='flex flex-col justify-around items-center h-auto w-full rounded-l-2xl bg-black bg-opacity-20'
+          onMouseOut={() => setIsOver(false)}
+        >
           <div />
           <div>
             <h2 className='text-center text-xl '>{name}</h2>

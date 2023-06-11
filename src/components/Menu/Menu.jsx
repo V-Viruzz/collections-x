@@ -22,6 +22,7 @@ function Menu ({ setData }) {
   }
 
   const deleteAll = () => {
+    navigate('/collections')
     const fileSystem = JSON.parse(window.localStorage.getItem('fileSystem'))
     fileSystem.collections = [{
       id: 'collections',
