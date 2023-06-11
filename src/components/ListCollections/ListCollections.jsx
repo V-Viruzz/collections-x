@@ -45,7 +45,7 @@ function ListCollections ({ entryPath, deleteItem, editItem }) {
           <ul
             {...droppableProvided.droppableProps}
             ref={droppableProvided.innerRef}
-            className='flex flex-col gap-4 '
+            className='flex flex-col gap-4'
           >
             {
             listId
