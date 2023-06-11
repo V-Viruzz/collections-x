@@ -149,7 +149,7 @@ function useCollection () {
   useEffect(() => {
     gettingCollections()
       .then((res) => {
-        console.log('gettingCollections :', res)
+        // console.log('gettingCollections :', res)
         const collections = res.user.collections
 
         setData(res.user)

@@ -13,7 +13,9 @@ function AddCollection ({ addItem, entryPath, currentPath }) {
   const nameRef = useRef(null)
   const linkRef = useRef(null)
 
-  const handleClickForm = () => {
+  const handleClickForm = (event) => {
+    event.preventDefault()
+
     const name = nameRef.current.value
     const link = selectType === 'link' ? linkRef.current.value : null
 
@@ -146,30 +148,32 @@ function AddCollection ({ addItem, entryPath, currentPath }) {
 
           </ul>
 
-          <input
-            type='text'
-            placeholder='name'
-            id='name-folder'
-            ref={nameRef}
-            className={`${error ? 'border-2 border-red-700' : ''} block appearance-none w-60 rounded-lg bg-bluegray-900 bg-opacity-50 px-4 py-3 text-center text-base placeholder-bluegray-400 shadow-sm transition duration-300 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-500 focus:ring-opacity-50`}
-          />
-          {
-          selectType === 'link'
-            ? <input
-                type='text'
-                placeholder='link'
-                id='link'
-                ref={linkRef}
-                className={`${error ? 'border-2 border-red-700' : ''} block appearance-none w-60 rounded-lg bg-bluegray-900 bg-opacity-50 px-4 py-3 text-center text-base placeholder-bluegray-400 shadow-sm transition duration-300 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-500 focus:ring-opacity-50`}
-              />
-            : null
-          }
+          <form className='flex flex-col gap-4'>
+            <input
+              type='text'
+              placeholder='name'
+              id='name-folder'
+              ref={nameRef}
+              className={`${error ? 'border-2 border-red-700' : ''} block appearance-none w-60 rounded-lg bg-bluegray-900 bg-opacity-50 px-4 py-3 text-center text-base placeholder-bluegray-400 shadow-sm transition duration-300 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-500 focus:ring-opacity-50`}
+            />
+            {
+             selectType === 'link'
+               ? <input
+                   type='text'
+                   placeholder='link'
+                   id='link'
+                   ref={linkRef}
+                   className={`${error ? 'border-2 border-red-700' : ''} block appearance-none w-60 rounded-lg bg-bluegray-900 bg-opacity-50 px-4 py-3 text-center text-base placeholder-bluegray-400 shadow-sm transition duration-300 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-500 focus:ring-opacity-50`}
+                 />
+               : null
+             }
 
-          <button
-            onClick={handleClickForm}
-            className=' bg-slate-800 w-60 h-11 rounded-lg'
-          >Crear
-          </button>
+            <button
+              onClick={handleClickForm}
+              className=' bg-slate-800 w-60 h-11 rounded-lg'
+            >Crear
+            </button>
+          </form>
 
         </div>
       </div>
