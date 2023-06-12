@@ -52,7 +52,7 @@ function AddCollection ({ addItem, entryPath, currentPath }) {
     const idpa = md5(entryPath + 'folder')
 
     addItem({
-      name,
+      name: name.trim(),
       link,
       type: selectType,
       color: 'primary',
