@@ -49,7 +49,7 @@ function AddCollection ({ addItem, entryPath, currentPath }) {
       return
     }
 
-    const idpa = md5(entryPath + selectType)
+    const idpa = md5(entryPath + 'folder')
 
     addItem({
       name,
