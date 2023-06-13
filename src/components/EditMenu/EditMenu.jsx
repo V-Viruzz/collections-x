@@ -35,7 +35,7 @@ function EditMenu ({ inputHidden, setInputHidden, setIsOver, editItem, type, id,
       newName,
       newLink
     })
-    setIsOver(false)
+    // setIsOver(false)
     setInputHidden(true)
     setReload(prev => !prev)
   }

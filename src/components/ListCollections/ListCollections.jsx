@@ -45,7 +45,7 @@ function ListCollections ({ entryPath, deleteItem, editItem }) {
           <ul
             {...droppableProvided.droppableProps}
             ref={droppableProvided.innerRef}
-            className='flex flex-col gap-4'
+            className='flex flex-col'
           >
             {
             listId
@@ -58,11 +58,12 @@ function ListCollections ({ entryPath, deleteItem, editItem }) {
                       index={index}
                       draggableId={attrs.id}
                     >
-                      {draggableProvided => (
+                      {(draggableProvided, snapshot) => (
                         <li
                           ref={draggableProvided.innerRef}
                           {...draggableProvided.draggableProps}
                           {...draggableProvided.dragHandleProps}
+                          className='my-2'
                         >
                           <RenderCollection
                             key={attrs.id}
@@ -71,6 +72,7 @@ function ListCollections ({ entryPath, deleteItem, editItem }) {
                             entryPath={entryPath}
                             deleteItem={deleteItem}
                             editItem={editItem}
+                            isDragging={snapshot.isDragging}
                           />
                         </li>
                       )}

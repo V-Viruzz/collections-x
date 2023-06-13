@@ -3,67 +3,42 @@ import { Link } from 'react-router-dom'
 import { CollectionContext } from '../../context/collection'
 import EditMenu from '../EditMenu/EditMenu'
 
-function Folder ({ name, date, deleteItem, editItem, parentID, id, path, type }) {
+function Folder ({ name, date, deleteItem, editItem, parentID, id, path, type, isDragging }) {
   const { setReload } = useContext(CollectionContext)
-  const [showButtonMenu, setShowButtonMenu] = useState(false)
   const [inputHidden, setInputHidden] = useState(true)
   const [showMenu, setShowMenu] = useState(false)
-  const [isOver, setIsOver] = useState(false)
 
-  const deleteItemClick = () => {
-    deleteItem({ id, parentID })
-    console.log('delete item')
-    setReload(prev => !prev)
-  }
+  const url = path.split('/')
+  const index = url.indexOf('collections')
+  const pathFolder = url.splice(index + 1).join('/')
+
   // const editeItemClick = () => {
   //   console.log('edite item')
   //   setInputHidden(false)
   //   setShowMenu(false)
   // }
 
-  const DirLink = (props) => {
-    const url = path.split('/')
-    const index = url.indexOf('collections')
-    const pathFolder = url.splice(index + 1).join('/')
+  const handleMenuClick = (event) => {
+    event.preventDefault()
+    setShowMenu(!showMenu)
+    setReload(prev => !prev)
+  }
 
-    return (
-      <>
-        {
-        isOver
-          ? (
-            <div
-              to={pathFolder}
-              className='text-inherit hover:text-inherit'
-            >
-              {props.children}
-            </div>
-            )
-          : (
-            <Link
-              to={pathFolder}
-              onClick={() => setReload(prev => !prev)}
-              className='text-inherit hover:text-inherit'
-            >
-              {props.children}
-            </Link>
-            )
-      }
-      </>
-    )
+  const deleteItemClick = (event) => {
+    deleteItem({ id, parentID })
+    event.preventDefault()
   }
 
   return (
+    <Link
+      to={pathFolder}
+      onClick={() => setReload(prev => !prev)}
+      className='text-inherit hover:text-inherit'
+    >
+      <div className={`${isDragging ? 'bg-black' : ''} flex w-full h-32 rounded-2xl`}>
 
-    <DirLink>
-      <div
-        onMouseOver={() => setShowButtonMenu(true)}
-        onMouseOut={() => setShowButtonMenu(false)}
-        className='flex w-full h-32 rounded-2xl'
-      >
-
-        <div 
+        <div
           className='flex flex-col justify-around items-center h-auto w-full rounded-l-2xl bg-black bg-opacity-20'
-          onMouseOut={() => setIsOver(false)}
         >
           <div />
           <div>
@@ -84,10 +59,8 @@ function Folder ({ name, date, deleteItem, editItem, parentID, id, path, type })
           </svg>
 
           <button
-            onMouseOver={() => setIsOver(true)}
-            onMouseOut={() => setIsOver(false)}
-            onClick={() => setShowMenu(!showMenu)}
-            className={`${showButtonMenu ? '' : 'opacity-0'} absolute top-2 right-2`}
+            onClick={handleMenuClick}
+            className='absolute top-2 right-2'
           >
             <svg width='18px' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg' transform='rotate(90)'>
               <g id='SVGRepo_bgCarrier' strokeWidth='0' />
@@ -101,8 +74,6 @@ function Folder ({ name, date, deleteItem, editItem, parentID, id, path, type })
           </button>
 
           <ul
-            onMouseOver={() => setIsOver(true)}
-            onMouseOut={() => setIsOver(false)}
             className={`${showMenu ? '' : 'hidden'} 
               right-0 top-7 h-auto w-40 absolute bg-zinc-900
               border-solid border border-zinc-700 rounded-lg
@@ -134,12 +105,11 @@ function Folder ({ name, date, deleteItem, editItem, parentID, id, path, type })
           inputHidden={inputHidden}
           setInputHidden={setInputHidden}
           editItem={editItem}
-          setIsOver={setIsOver}
+          // setIsOver={setIsOver}
         />
 
       </div>
-    </DirLink>
-
+    </Link>
   )
 }
 

@@ -2,69 +2,44 @@ import { useState, useContext } from 'react'
 import { CollectionContext } from '../../context/collection'
 import EditMenu from '../EditMenu/EditMenu'
 
-function LinkCard ({ name, link, date, deleteItem, editItem, parentID, id, type }) {
+function LinkCard ({ name, link, date, deleteItem, editItem, parentID, id, type, isDragging }) {
   const { setReload } = useContext(CollectionContext)
-  const [showButtonMenu, setShowButtonMenu] = useState(false)
   const [inputHidden, setInputHidden] = useState(true)
   const [showMenu, setShowMenu] = useState(false)
-  const [isOver, setIsOver] = useState(false)
 
-  const deleteItemClick = () => {
-    deleteItem({ id, parentID })
-    console.log('delete item')
-    setReload(prev => !prev)
-  }
+  const ishttps = link.includes('https://' || 'http://')
+  const newlink = !ishttps ? 'https://' + link : link
+  const textLink = link
+    .replace('https://', '')
+    .replace('http://', '')
+    .split('/')[0]
+
   // const editeItemClick = () => {
   //   console.log('edite item')
   //   setInputHidden(false)
   //   setShowMenu(false)
   // }
 
-  const textLink = link
-    .replace('https://', '')
-    .replace('http://', '')
-    .split('/')[0]
+  const handleMenuClick = (event) => {
+    event.preventDefault()
+    setShowMenu(!showMenu)
+  }
 
-  const ishttps = link.includes('https://' || 'http://')
-  const newlink = !ishttps ? 'https://' + link : link
-
-  const DirLink = (props) => {
-    return (
-      <>
-        {
-        isOver
-          ? (
-            <div className='text-inherit hover:text-inherit'>
-              {props.children}
-            </div>
-            )
-          : (
-            <a
-              href={newlink}
-              target='_blank'
-              rel='noreferrer'
-              className='text-inherit hover:text-inherit'
-            >
-              {props.children}
-            </a>
-            )
-      }
-      </>
-    )
+  const deleteItemClick = (event) => {
+    deleteItem({ id, parentID })
+    setReload(prev => !prev)
+    event.preventDefault()
   }
 
   return (
 
-    <DirLink
+    <a
+      href={newlink}
       target='_blank'
       rel='noreferrer'
-
+      className='text-inherit hover:text-inherit'
     >
-      <div
-        onMouseOver={() => setShowButtonMenu(true)}
-        onMouseOut={() => setShowButtonMenu(false)}
-        className='flex w-full h-32 rounded-2xl'
-      >
+      <div className={`${isDragging ? 'bg-black' : ''} flex w-full h-32 rounded-2xl z-10`}>
 
         <div className='flex flex-col justify-around items-center h-auto w-full rounded-l-2xl text-gray-50 bg-black bg-opacity-20'>
           <div className='px-5 flex w-full justify-between '>
@@ -88,10 +63,8 @@ function LinkCard ({ name, link, date, deleteItem, editItem, parentID, id, type 
           </svg>
 
           <button
-            onMouseOver={() => setIsOver(true)}
-            onMouseOut={() => setIsOver(false)}
-            onClick={() => setShowMenu(!showMenu)}
-            className={`${showButtonMenu ? '' : 'opacity-0'} absolute top-2 right-2 z-50`}
+            onClick={handleMenuClick}
+            className='absolute top-2 right-2 z-50'
           >
             <svg width='18px' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg' transform='rotate(90)'>
               <g id='SVGRepo_bgCarrier' strokeWidth='0' />
@@ -105,8 +78,8 @@ function LinkCard ({ name, link, date, deleteItem, editItem, parentID, id, type 
           </button>
 
           <ul
-            onMouseOver={() => setIsOver(true)}
-            onMouseOut={() => setIsOver(false)}
+            // onMouseOver={() => setIsOver(true)}
+            // onMouseOut={() => setIsOver(false)}
             className={`${showMenu ? '' : 'hidden'} 
               right-0 top-7 h-auto w-40 absolute bg-zinc-900
               border-solid border border-zinc-700 rounded-lg
@@ -141,9 +114,8 @@ function LinkCard ({ name, link, date, deleteItem, editItem, parentID, id, type 
         inputHidden={inputHidden}
         setInputHidden={setInputHidden}
         editItem={editItem}
-        setIsOver={setIsOver}
       />
-    </DirLink>
+    </a>
 
   )
 }

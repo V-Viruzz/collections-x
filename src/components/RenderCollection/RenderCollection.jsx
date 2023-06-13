@@ -1,17 +1,18 @@
-import FolderCollection from '../Folder/Folder'
+import Folder from '../Folder/Folder'
 import LinkCard from '../LinkCard/LinkCard'
 
-function RenderCollection ({ attrs, entryPath, deleteItem, editItem, index }) {
+function RenderCollection ({ attrs, entryPath, deleteItem, editItem, index, isDragging }) {
   const showCollection = () => {
     if (attrs.type === 'folder') {
       return (
-        <FolderCollection
+        <Folder
           {...attrs}
           key={attrs.id}
           index={index}
           entryPath={entryPath}
           deleteItem={deleteItem}
           editItem={editItem}
+          isDragging={isDragging}
         />
       )
     } else if (attrs.type === 'link') {
@@ -22,6 +23,7 @@ function RenderCollection ({ attrs, entryPath, deleteItem, editItem, index }) {
           index={index}
           deleteItem={deleteItem}
           editItem={editItem}
+          isDragging={isDragging}
         />
       )
     }
