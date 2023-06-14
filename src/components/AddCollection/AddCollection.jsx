@@ -130,7 +130,7 @@ function AddCollection ({ addItem, entryPath, currentPath }) {
 
       {/* Menu to add collection */}
       <div className={`fixed z-50 inset-0 items-center justify-center ${inputHidden ? 'hidden' : 'flex'}`}>
-        <div className='container mx-auto bg-zinc-900 w-80 py-10 rounded-2xl flex justify-center items-center flex-col gap-4 relative'>
+        <div className='container mx-auto bg-zinc-100 border-zinc-300 border-solid border dark:border-none dark:bg-zinc-900 w-80 py-10 rounded-2xl flex justify-center items-center flex-col gap-4 relative'>
           <button
             className='absolute top-0 right-0 mx-5 my-3 p-0 text-xl border-none hover:border-none bg-inherit focus:border-0'
             onClick={() => { setInputHidden(true); setError(false) }}
@@ -139,15 +139,15 @@ function AddCollection ({ addItem, entryPath, currentPath }) {
 
           <h3 className='text-xl'>Create new</h3>
 
-          <ul className='flex gap-3'>
+          <ul className='flex gap-3 text-white'>
             <li
-              className={`${selectType === 'folder' ? 'bg-slate-900' : 'bg-slate-800'} px-4 py-2 rounded-lg`}
+              className={`${selectType === 'folder' ? 'bg-blue-800 dark:bg-slate-900' : 'bg-blue-500 dark:bg-slate-800'} px-4 py-2 rounded-lg`}
               onClick={() => setSelectType('folder')}
             >
               Folder
             </li>
             <li
-              className={`${selectType === 'link' ? 'bg-slate-900' : 'bg-slate-800'} px-4 py-2 rounded-lg`}
+              className={`${selectType === 'link' ? 'bg-blue-800 dark:bg-slate-900' : 'bg-blue-500 dark:bg-slate-800'} px-4 py-2 rounded-lg`}
               onClick={() => setSelectType('link')}
             >
               Link
@@ -161,7 +161,7 @@ function AddCollection ({ addItem, entryPath, currentPath }) {
               placeholder='name'
               id='name-folder'
               ref={nameRef}
-              className={`${error ? 'border-2 border-red-700' : ''} block appearance-none w-60 rounded-lg bg-bluegray-900 bg-opacity-50 px-4 py-3 text-center text-base placeholder-bluegray-400 shadow-sm transition duration-300 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-500 focus:ring-opacity-50`}
+              className={`${error ? 'border-2 border-red-700' : ''} border-2 border-zinc-200 dark:border-none block appearance-none w-60 rounded-lg bg-bluegray-900 bg-opacity-50 px-4 py-3 text-center text-base placeholder-bluegray-400 shadow-sm transition duration-300 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-500 focus:ring-opacity-50`}
             />
             {
              selectType === 'link'
@@ -170,14 +170,14 @@ function AddCollection ({ addItem, entryPath, currentPath }) {
                    placeholder='link'
                    id='link'
                    ref={linkRef}
-                   className={`${error ? 'border-2 border-red-700' : ''} block appearance-none w-60 rounded-lg bg-bluegray-900 bg-opacity-50 px-4 py-3 text-center text-base placeholder-bluegray-400 shadow-sm transition duration-300 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-500 focus:ring-opacity-50`}
+                   className={`${error ? 'border-2 border-red-700' : ''} border-2 border-zinc-200 dark:border-none block appearance-none w-60 rounded-lg bg-bluegray-900 bg-opacity-50 px-4 py-3 text-center text-base placeholder-bluegray-400 shadow-sm transition duration-300 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-500 focus:ring-opacity-50`}
                  />
                : null
              }
 
             <button
               onClick={handleClickForm}
-              className=' bg-slate-800 w-60 h-11 rounded-lg'
+              className='bg-blue-800 dark:bg-slate-800 w-60 h-11 rounded-lg text-white'
             >Crear
             </button>
           </form>

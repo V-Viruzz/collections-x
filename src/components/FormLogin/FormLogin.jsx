@@ -38,7 +38,7 @@ function FormLogin () {
         <Input type='text' placeholder='Email' id='signup-email' />
         <Input type='password' placeholder='Password' id='signup-password' />
 
-        <button className=' bg-slate-800 w-full h-11 rounded-lg '>Continuar</button>
+        <button className='bg-blue-500 dark:bg-slate-800 text-white w-full h-11 rounded-lg'>Continuar</button>
 
       </form>
     </div>

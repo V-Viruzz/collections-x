@@ -60,7 +60,7 @@ function Folder ({ name, date, deleteItem, editItem, parentID, id, path, type, i
 
           <button
             onClick={handleMenuClick}
-            className='absolute top-2 right-2'
+            className='absolute top-2 right-2 text-white'
           >
             <svg width='18px' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg' transform='rotate(90)'>
               <g id='SVGRepo_bgCarrier' strokeWidth='0' />
@@ -77,7 +77,7 @@ function Folder ({ name, date, deleteItem, editItem, parentID, id, path, type, i
             className={`${showMenu ? '' : 'hidden'} 
               right-0 top-7 h-auto w-40 absolute bg-zinc-100 dark:bg-zinc-900
               border-solid border border-zinc-300  dark:border-zinc-700 rounded-lg
-              shadow-xl p-3 font-sans text-sm font-normal focus:outline-none
+              shadow-xl p-3 font-sans text-sm font-normal focus:outline-none text-black dark:text-white
             `}
           >
             <li

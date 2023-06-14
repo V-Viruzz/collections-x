@@ -64,7 +64,7 @@ function LinkCard ({ name, link, date, deleteItem, editItem, parentID, id, type,
 
           <button
             onClick={handleMenuClick}
-            className='absolute top-2 right-2 z-50'
+            className='absolute top-2 right-2 z-50 text-white'
           >
             <svg width='18px' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg' transform='rotate(90)'>
               <g id='SVGRepo_bgCarrier' strokeWidth='0' />
@@ -78,18 +78,16 @@ function LinkCard ({ name, link, date, deleteItem, editItem, parentID, id, type,
           </button>
 
           <ul
-            // onMouseOver={() => setIsOver(true)}
-            // onMouseOut={() => setIsOver(false)}
             className={`${showMenu ? '' : 'hidden'} 
-              right-0 top-7 h-auto w-40 absolute bg-zinc-900
-              border-solid border border-zinc-700 rounded-lg
-              shadow-xl p-3 font-sans text-sm font-normal focus:outline-none
+              right-0 top-7 h-auto w-40 absolute bg-zinc-100 dark:bg-zinc-900
+              border-solid border border-zinc-300  dark:border-zinc-700 rounded-lg
+              shadow-xl p-3 font-sans text-sm font-normal focus:outline-none text-black dark:text-white
             `}
           >
             <li
               role='menuitem'
               onClick={deleteItemClick}
-              className='block w-full cursor-pointer select-none rounded-md px-3 pt-[9px] pb-2 text-start leading-tight transition-all hover:bg-zinc-800 hover:bg-opacity-80 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900 hover:text-red-600'
+              className='block w-full cursor-pointer select-none rounded-md px-3 pt-[9px] pb-2 text-start leading-tight transition-all hover:bg-zinc-800 hover:bg-opacity-10 dark:hover:bg-opacity-80 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900 hover:text-red-600'
             >
               Delete
             </li>
