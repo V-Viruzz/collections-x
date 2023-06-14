@@ -13,6 +13,13 @@ function AddCollection ({ addItem, entryPath, currentPath }) {
   const nameRef = useRef(null)
   const linkRef = useRef(null)
 
+  const handleAddButton = () => {
+    setInputHidden(false)
+    setTimeout(() => {
+      nameRef.current.focus()
+    }, 300)
+  }
+
   const handleClickForm = (event) => {
     event.preventDefault()
 
@@ -108,7 +115,7 @@ function AddCollection ({ addItem, entryPath, currentPath }) {
       </div>
 
       <div className='flex justify-between gap-3'>
-        <button onClick={() => setInputHidden(false)}>
+        <button onClick={handleAddButton}>
           <svg width='24px' height='24px' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
             <g id='SVGRepo_bgCarrier' strokeWidth='0' />
             <g id='SVGRepo_tracerCarrier' strokeLinecap='round' strokeLinejoin='round' />
@@ -120,6 +127,7 @@ function AddCollection ({ addItem, entryPath, currentPath }) {
           </svg>
         </button>
       </div>
+      {/* <input type='text' ref={nameRef} /> */}
 
       {/* Menu to add collection */}
       <div className={`fixed z-50 inset-0 items-center justify-center ${inputHidden ? 'hidden' : 'flex'}`}>
@@ -130,7 +138,7 @@ function AddCollection ({ addItem, entryPath, currentPath }) {
           >×
           </button>
 
-          <h3 className='text-xl'>Crear nuevo</h3>
+          <h3 className='text-xl'>Create new</h3>
 
           <ul className='flex gap-3'>
             <li

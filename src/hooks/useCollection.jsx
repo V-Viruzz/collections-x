@@ -40,11 +40,19 @@ function reducer (state, action) {
     // Encuentra la entrada en la colección
     const index = state.collections.findIndex(item => item.id === id)
     const indexParent = state.collections.findIndex(item => item.id === parentID)
-    const indexChildren = state.collections[indexParent].children.findIndex(item => item === id)
+    const childIndexInParent = state.collections[indexParent].children.findIndex(item => item === id)
+    const indexChildren = state.collections[index].children.map(child => {
+      const index = state.collections.findIndex(item => item.id === child)
+      return index
+    })
 
     // Elimina la entrada de la colección
+
+    for (let i = indexChildren.length - 1; i >= 0; i--) {
+      newState.collections.splice(indexChildren[i], 1)
+    }
     newState.collections.splice(index, 1)
-    newState.collections[indexParent].children.splice(indexChildren, 1)
+    newState.collections[indexParent].children.splice(childIndexInParent, 1)
 
     // Actualiza el localStorage y vuelve a cargar la colección
     window.localStorage.setItem('fileSystem', JSON.stringify(state))
@@ -52,43 +60,43 @@ function reducer (state, action) {
     return { ...state }
   }
 
-  if (action.type === 'EDIT_NAME') {
-    const { id, newName, newLink } = action.value
-    const newState = { ...state }
+  // if (action.type === 'EDIT_NAME') {
+  //   const { id, newName, newLink } = action.value
+  //   const newState = { ...state }
 
-    // Encuentra la entrada en la colección
-    const index = state.collections.findIndex(item => item.id === id)
+  //   // Encuentra la entrada en la colección
+  //   const index = state.collections.findIndex(item => item.id === id)
 
-    // Elimina la entrada de la colección
-    newState.collections[index].name = newName
-    newState.collections[index].link = newLink
+  //   // Elimina la entrada de la colección
+  //   newState.collections[index].name = newName
+  //   newState.collections[index].link = newLink
 
-    const arrayPath = newState.collections[index].path.split('/')
-    arrayPath.splice((arrayPath.length - 1), 1, newName)
-    newState.collections[index].path = arrayPath.join('/')
+  //   const arrayPath = newState.collections[index].path.split('/')
+  //   arrayPath.splice((arrayPath.length - 1), 1, newName)
+  //   newState.collections[index].path = arrayPath.join('/')
 
-    console.log('object :>> ', newState.collections[index].path + newState.collections[index].type)
+  //   console.log('object :>> ', newState.collections[index].path + newState.collections[index].type)
 
-    const parentID = md5(newState.collections[index].path + ' ' + newState.collections[index].type)
-    newState.collections[index].id = parentID
+  //   const parentID = md5(newState.collections[index].path + ' ' + newState.collections[index].type)
+  //   newState.collections[index].id = parentID
 
-    newState.collections[index].children.map(item => {
-      const children = newState.collections.find(c => c.id === item)
-      const tmpPath = children.path.split('/')
-      const indexPath = tmpPath.findIndex(item => item === children.parentPath)
-      tmpPath.splice(indexPath, 1, newName)
+  //   newState.collections[index].children.map(item => {
+  //     const children = newState.collections.find(c => c.id === item)
+  //     const tmpPath = children.path.split('/')
+  //     const indexPath = tmpPath.findIndex(item => item === children.parentPath)
+  //     tmpPath.splice(indexPath, 1, newName)
 
-      children.parentID = parentID
-      children.path = tmpPath.join('/')
-      children.parentPath = newName
-      return children
-    })
+  //     children.parentID = parentID
+  //     children.path = tmpPath.join('/')
+  //     children.parentPath = newName
+  //     return children
+  //   })
 
-    // Actualiza el localStorage y vuelve a cargar la colección
-    window.localStorage.setItem('fileSystem', JSON.stringify(newState))
-    uploadCollection(newState)
-    return { ...newState }
-  }
+  //   // Actualiza el localStorage y vuelve a cargar la colección
+  //   window.localStorage.setItem('fileSystem', JSON.stringify(newState))
+  //   uploadCollection(newState)
+  //   return { ...newState }
+  // }
 }
 
 function useCollection () {
