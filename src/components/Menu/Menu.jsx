@@ -61,22 +61,22 @@ function Menu ({ setData }) {
 
       <ul
         className={`${showMenu ? '' : 'hidden'} 
-         right-0 top-14 h-auto w-40 absolute bg-zinc-900
-         border-solid border border-zinc-700 rounded-lg
+         right-0 top-14 h-auto w-40 absolute bg-zinc-100 dark:bg-zinc-900
+         border-solid border border-zinc-300  dark:border-zinc-700 rounded-lg
          shadow-xl p-3 font-sans text-sm font-normal focus:outline-none z-10
          `}
       >
         <li
           role='menuitem'
           onClick={deleteAll}
-          className='block w-full cursor-pointer select-none rounded-md px-3 pt-[9px] pb-2 text-start leading-tight transition-all hover:bg-zinc-800 hover:bg-opacity-80 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900 hover:text-red-600'
+          className='block w-full cursor-pointer select-none rounded-md px-3 pt-[9px] pb-2 text-start leading-tight transition-all hover:bg-zinc-800 hover:bg-opacity-10 dark:hover:bg-opacity-80 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900 hover:text-red-600'
         >
           Delete all
         </li>
         <li
           role='menuitem'
           onClick={handleClickSignOut}
-          className='block w-full cursor-pointer select-none rounded-md px-3 pt-[9px] pb-2 text-start leading-tight transition-all hover:bg-zinc-800 hover:bg-opacity-80 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900 '
+          className='block w-full cursor-pointer select-none rounded-md px-3 pt-[9px] pb-2 text-start leading-tight transition-all hover:bg-zinc-800 hover:bg-opacity-10 dark:hover:bg-opacity-80  focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900 '
         >
           Log out
         </li>

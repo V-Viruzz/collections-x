@@ -35,10 +35,10 @@ function Folder ({ name, date, deleteItem, editItem, parentID, id, path, type, i
       onClick={() => setReload(prev => !prev)}
       className='text-inherit hover:text-inherit'
     >
-      <div className={`${isDragging ? 'bg-black' : ''} flex w-full h-32 rounded-2xl`}>
+      <div className={`${isDragging ? 'bg-sky-200 dark:bg-black' : ''} flex w-full h-32 rounded-2xl`}>
 
         <div
-          className='flex flex-col justify-around items-center h-auto w-full rounded-l-2xl bg-black bg-opacity-20'
+          className='flex flex-col justify-around items-center h-auto w-full rounded-l-2xl bg-black bg-opacity-10 dark:bg-opacity-20'
         >
           <div />
           <div>
@@ -49,7 +49,7 @@ function Folder ({ name, date, deleteItem, editItem, parentID, id, path, type, i
           </div>
         </div>
 
-        <div className='h-auto w-48 flex justify-center items-center rounded-r-2xl text-white bg-yellow-500 relative'>
+        <div className='h-auto w-48 flex justify-center items-center rounded-r-2xl bg-yellow-500 relative'>
           <svg fill='#ffffff' width='48px' height='48px' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
             <g id='SVGRepo_bgCarrier' strokeWidth='0' />
             <g id='SVGRepo_tracerCarrier' strokeLinecap='round' strokeLinejoin='round' />
@@ -75,15 +75,15 @@ function Folder ({ name, date, deleteItem, editItem, parentID, id, path, type, i
 
           <ul
             className={`${showMenu ? '' : 'hidden'} 
-              right-0 top-7 h-auto w-40 absolute bg-zinc-900
-              border-solid border border-zinc-700 rounded-lg
+              right-0 top-7 h-auto w-40 absolute bg-zinc-100 dark:bg-zinc-900
+              border-solid border border-zinc-300  dark:border-zinc-700 rounded-lg
               shadow-xl p-3 font-sans text-sm font-normal focus:outline-none
             `}
           >
             <li
               role='menuitem'
               onClick={deleteItemClick}
-              className='block w-full cursor-pointer select-none rounded-md px-3 pt-[9px] pb-2 text-start leading-tight transition-all hover:bg-zinc-800 hover:bg-opacity-80 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900 hover:text-red-600'
+              className='block w-full cursor-pointer select-none rounded-md px-3 pt-[9px] pb-2 text-start leading-tight transition-all hover:bg-zinc-800 hover:bg-opacity-10 dark:hover:bg-opacity-80 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900 hover:text-red-600'
             >
               Delete
             </li>

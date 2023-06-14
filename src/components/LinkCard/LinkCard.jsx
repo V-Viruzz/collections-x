@@ -39,9 +39,9 @@ function LinkCard ({ name, link, date, deleteItem, editItem, parentID, id, type,
       rel='noreferrer'
       className='text-inherit hover:text-inherit'
     >
-      <div className={`${isDragging ? 'bg-black' : ''} flex w-full h-32 rounded-2xl z-10`}>
+      <div className={`${isDragging ? 'bg-sky-200 dark:bg-black' : ''} flex w-full h-32 rounded-2xl z-10`}>
 
-        <div className='flex flex-col justify-around items-center h-auto w-full rounded-l-2xl text-gray-50 bg-black bg-opacity-20'>
+        <div className='flex flex-col justify-around items-center h-auto w-full rounded-l-2xl bg-black bg-opacity-10 dark:bg-opacity-20'>
           <div className='px-5 flex w-full justify-between '>
             <h2 className='text-sm text-start'>{name}</h2>
           </div>
