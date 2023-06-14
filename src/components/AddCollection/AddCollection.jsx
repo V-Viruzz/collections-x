@@ -7,7 +7,7 @@ import md5 from 'md5'
 function AddCollection ({ addItem, entryPath, currentPath }) {
   const { setReload } = useContext(CollectionContext)
   const [inputHidden, setInputHidden] = useState(true)
-  const [selectType, setSelectType] = useState(null)
+  const [selectType, setSelectType] = useState('folder')
   const [error, setError] = useState(false)
   const navigate = useNavigate()
   const nameRef = useRef(null)
@@ -127,7 +127,6 @@ function AddCollection ({ addItem, entryPath, currentPath }) {
           </svg>
         </button>
       </div>
-      {/* <input type='text' ref={nameRef} /> */}
 
       {/* Menu to add collection */}
       <div className={`fixed z-50 inset-0 items-center justify-center ${inputHidden ? 'hidden' : 'flex'}`}>
