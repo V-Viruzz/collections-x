@@ -12,6 +12,7 @@ function AddCollection ({ addItem, entryPath, currentPath }) {
   const navigate = useNavigate()
   const nameRef = useRef(null)
   const linkRef = useRef(null)
+  const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
 
   const handleAddButton = () => {
     setInputHidden(false)
@@ -91,7 +92,7 @@ function AddCollection ({ addItem, entryPath, currentPath }) {
         {
           currentPath !== 'collections' &&
             <button onClick={handleGoBack}>
-              <svg width='18px' height='18px' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg' fill='#ffffff'>
+              {/* <svg width='18px' height='18px' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
                 <g id='SVGRepo_bgCarrier' strokeWidth='0' /><g id='SVGRepo_tracerCarrier' strokeLinecap='round' strokeLinejoin='round' />
                 <g id='SVGRepo_iconCarrier'>
                   <title />
@@ -101,7 +102,16 @@ function AddCollection ({ addItem, entryPath, currentPath }) {
                     </g>
                   </g>
                 </g>
+              </svg> */}
+              <svg width='25px' height='25px' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
+                <g id='SVGRepo_bgCarrier' stroke-width='0' />
+                <g id='SVGRepo_tracerCarrier' stroke-linecap='round' stroke-linejoin='round' />
+                <g id='SVGRepo_iconCarrier'>
+                  <path d='M10 12.4L14.5 17.8' stroke={isDarkMode ? '#FFFFFF' : '#000000'} stroke-width='2' stroke-linecap='round' stroke-linejoin='round' />
+                  <path d='M10 12.4L14.5 7.00006' stroke={isDarkMode ? '#FFFFFF' : '#000000'} stroke-width='2' stroke-linecap='round' stroke-linejoin='round' />
+                </g>
               </svg>
+
             </button>
         }
 
