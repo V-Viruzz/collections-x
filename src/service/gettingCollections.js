@@ -7,7 +7,10 @@ async function gettingCollections () {
 
   const options = {
     method: 'POST',
-    body: user.uid
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ uid: user.uid })
   }
   try {
     const res = await fetch(`${API_URL}/gettingCollections`, options)
