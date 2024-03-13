@@ -1,6 +1,6 @@
 # Collections X
 
-Esta pagina fue hecha para organizar y gestionar todos tus enlaces. 
+Esta página fue hecha para organizar y gestionar todos tus enlaces. 
 Con esta herramienta, puedes guardar todos tus enlaces y organizarlos en carpetas personalizadas según tus necesidades.
 
 > Backend - https://github.com/V-Viruzz/collection-api
